@@ -6,22 +6,22 @@
 }
 
 body {
-    background: linear-gradient(135deg, #1e1e2e 0%, #2a2a40 100%); /* Fundo escuro moderno */
+    background: linear-gradient(135deg, #1e1e2e 0%, #2a2a40 100%);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Fira Code', monospace;
-    overflow: hidden; /* Evita rolagem na página de fundo */
+    overflow: hidden;
 }
 
 /* A Janela do Terminal */
 .terminal-window {
     width: 800px;
     height: 500px;
-    background-color: #16161e; /* Cor da janela */
+    background-color: #16161e;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para dar destaque */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -57,7 +57,7 @@ body {
     text-align: center;
     color: #a9b1d6;
     font-size: 14px;
-    margin-right: 50px; /* Compensa os botões para centralizar o texto */
+    margin-right: 50px;
 }
 
 /* Corpo do Terminal */
@@ -66,7 +66,7 @@ body {
     padding: 20px;
     color: #c0caf5;
     font-size: 14px;
-    overflow-y: auto; /* Permite rolar se o texto for longo */
+    overflow-y: auto;
     cursor: text;
 }
 
@@ -98,7 +98,7 @@ pre {
 }
 
 .prompt {
-    color: #9ece6a; /* Verde */
+    color: #9ece6a;
     margin-right: 10px;
     font-weight: bold;
 }
@@ -126,37 +126,37 @@ pre {
 /* Para Celulares (max-width 600px) */
 @media (max-width: 600px) {
     body {
-        align-items: flex-start; /* Joga para o topo no celular */
+        align-items: flex-start;
         padding-top: 20px;
-        background: #16161e; /* Fundo sólido igual ao terminal no mobile */
+        background: #16161e;
     }
 
     .terminal-window {
         width: 100%;
-        height: 100vh; /* Ocupa a tela toda */
+        height: 100vh;
         border-radius: 0;
         border: none;
         box-shadow: none;
     }
 
     .terminal-header {
-        display: none; /* Opcional: esconde a barra superior no celular para ganhar espaço */
+        display: none;
     }
     
     .terminal-body {
         padding: 10px;
-        font-size: 12px; /* Fonte levemente menor */
+        font-size: 12px;
     }
     
     #command-input {
-        font-size: 16px; /* Evita zoom automático no iOS ao focar */
+        font-size: 16px;
     }
 }
 /* Estilos de Texto do Currículo */
 
 /* Cabeçalhos de seção (--- XP ---) */
 .header {
-    color: #e0af68; /* Amarelo dourado */
+    color: #e0af68;
     font-weight: bold;
     display: inline-block;
     margin-top: 10px;
@@ -165,26 +165,19 @@ pre {
 
 /* Comandos na lista de help */
 .cmd {
-    color: #7dcfff; /* Azul ciano */
+    color: #7dcfff;
     font-weight: bold;
 }
 
 /* Destaque (Nome da empresa/projeto) */
 .highlight {
-    color: #bb9af7; /* Roxo suave */
+    color: #bb9af7;
     font-weight: bold;
-}
-
-/* Datas */
-.date {
-    color: #565f89; /* Cinza azulado */
-    font-style: italic;
-    font-size: 0.9em;
 }
 
 /* Prompt */
 .prompt {
-    color: #9ece6a; /* Verde */
+    color: #9ece6a;
     margin-right: 8px;
     font-weight: bold;
 }
