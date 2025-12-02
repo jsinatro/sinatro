@@ -131,18 +131,21 @@ function scrollToBottom() {
 
 function showHelp() {
     const commands = [
+        // Comando principal com atalho 'ls'
+        { cmd: 'help ou ls', desc: 'Exibe esta lista de comandos' },
         { cmd: 'sobre', desc: 'Resumo profissional' },
-        { cmd: 'skills', desc: 'Minhas habilidades técnicas' },
+        { cmd: 'skills', desc: 'Habilidades técnicas' },
         { cmd: 'educacao', desc: 'Formação acadêmica' },
-        { cmd: 'projetos', desc: 'Lista de projetos (com links)' },
-        { cmd: 'contato', desc: 'Email e redes sociais' },
-        { cmd: 'tudo', desc: 'Exibe o currículo completo' },
-        { cmd: 'clear', desc: 'Limpa a tela' }
+        { cmd: 'projetos', desc: 'Lista de projetos e códigos' },
+        { cmd: 'contato', desc: 'Links e redes sociais' },
+        { cmd: 'cv', desc: 'Baixar currículo em PDF' },
+        { cmd: 'clear', desc: 'Limpa a tela do terminal' },
     ];
 
     addOutputLine("<span class='header'>--- COMANDOS DISPONÍVEIS ---</span>");
     commands.forEach(c => {
-        addOutputLine(`<span class='cmd'>${c.cmd.padEnd(10)}</span> - ${c.desc}`);
+        // padEnd(20) ajustado para garantir bom espaçamento, já que o comando 'help ou ls' é mais longo
+        addOutputLine(`<span class='cmd'>${c.cmd.padEnd(20)}</span> - ${c.desc}`); 
     });
 }
 
@@ -196,7 +199,7 @@ function showContact() {
     // Projetos/Interesses (Genealogia)
     addOutputLine("<br>Projetos de Interesse:");
     // NOVO: Exibe o nome de usuário ao lado do link
-    addOutputLine(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">www.familysearch.org</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
+    addOutputLine(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">git www.familysearch.org</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
     addOutputLine(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
     
     addOutputLine("<br>Entre em contato para um café virtual!");
@@ -243,15 +246,65 @@ function processCommand(command) {
 
     // Comandos Normais
     switch (cmd) {
-        case 'help': case '?': showHelp(); break;
-        case 'sobre': case 'about': showAbout(); break;
-        case 'skills': case 'habilidades': showSkills(); break;
-        case 'educacao': case 'education': showEducation(); break;
-        case 'projetos': case 'ls': showProjects(); break;
-        case 'contato': case 'contact': showContact(); break;
-        case 'tudo': case 'all': showAll(); break;
-        case 'clear': outputDiv.innerHTML = ''; break;
-        case 'github': window.open(resume.social.github, '_blank'); break;
+        // Comandos de Ajuda e Limpeza
+        case 'help': 
+        case '?':
+        case 'ls': // <-- AGORA 'LS' CHAMA A FUNÇÃO DE AJUDA
+            showHelp(); 
+            break;
+            
+        case 'clear': 
+            outputDiv.innerHTML = ''; 
+            break;
+            
+        // Comando CV Completo (Tudo)
+        case 'tudo': 
+        case 'all': 
+            showAll(); 
+            break;
+            
+        // Seções do Currículo
+        case 'sobre': 
+        case 'about': 
+            showAbout(); 
+            break;
+            
+        case 'skills': 
+        case 'habilidades': 
+            showSkills(); 
+            break;
+            
+        case 'educacao': 
+        case 'education': 
+            showEducation(); 
+            break;
+            
+        // Projetos (Note que 'ls' foi removido daqui)
+        case 'projetos': 
+            showProjects(); 
+            break;
+            
+        // Contato e Redes Sociais
+        case 'contato': 
+        case 'contact': 
+            showContact(); 
+            break;
+            
+        case 'github': 
+            window.open(resume.social.github, '_blank'); 
+            break;
+
+        // Comando para Baixar CV em PDF
+        case 'cv':
+            addOutputLine("Baixando: João Sinatro - CV.pdf...");
+            window.open("./joao_sinatro_cv.pdf", '_blank');
+            break;
+            
+        // Comando Vazio (Enter)
+        case '':
+            break;
+            
+        // Comando Não Encontrado
         default:
             addOutputLine(`Comando '${cmd}' não encontrado. Digite 'help'.`);
     }
