@@ -152,3 +152,50 @@ pre {
         font-size: 16px; /* Evita zoom automático no iOS ao focar */
     }
 }
+/* Estilos de Texto do Currículo */
+
+/* Cabeçalhos de seção (--- XP ---) */
+.header {
+    color: #e0af68; /* Amarelo dourado */
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Comandos na lista de help */
+.cmd {
+    color: #7dcfff; /* Azul ciano */
+    font-weight: bold;
+}
+
+/* Destaque (Nome da empresa/projeto) */
+.highlight {
+    color: #bb9af7; /* Roxo suave */
+    font-weight: bold;
+}
+
+/* Datas */
+.date {
+    color: #565f89; /* Cinza azulado */
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Prompt */
+.prompt {
+    color: #9ece6a; /* Verde */
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    color: #7aa2f7;
+    text-decoration: none;
+    border-bottom: 1px dashed #7aa2f7;
+}
+a:hover {
+    background-color: #7aa2f7;
+    color: #1a1b26;
+}
