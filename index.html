@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>João Sinatro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="buttons">
+                <span class="btn red"></span>
+                <span class="btn yellow"></span>
+                <span class="btn green"></span>
+            </div>
+            <div class="title">github.com/jsinatro</div>
+        </div>
+
+        <div class="terminal-body" id="terminal-body">
+            <div id="output">
+                <pre>Bem-vindo ao meu portfólio</pre>
+                <pre>Digite <span class="highlight">'help'</span> ou <span class="highlight">'ls'</span> para ver os comandos.</pre>
+                <br>
+            </div>
+            
+            <div class="input-line">
+                <span class="prompt">portfolio@sinatro: ~</span>
+                <input type="text" id="command-input" autocomplete="off" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

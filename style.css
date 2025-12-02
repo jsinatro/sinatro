@@ -1,0 +1,154 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #1e1e2e 0%, #2a2a40 100%); /* Fundo escuro moderno */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Fira Code', monospace;
+    overflow: hidden; /* Evita rolagem na página de fundo */
+}
+
+/* A Janela do Terminal */
+.terminal-window {
+    width: 800px;
+    height: 500px;
+    background-color: #16161e; /* Cor da janela */
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para dar destaque */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+/* Barra Superior (Header) */
+.terminal-header {
+    background-color: #1a1b26;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.title {
+    flex-grow: 1;
+    text-align: center;
+    color: #a9b1d6;
+    font-size: 14px;
+    margin-right: 50px; /* Compensa os botões para centralizar o texto */
+}
+
+/* Corpo do Terminal */
+.terminal-body {
+    flex-grow: 1;
+    padding: 20px;
+    color: #c0caf5;
+    font-size: 14px;
+    overflow-y: auto; /* Permite rolar se o texto for longo */
+    cursor: text;
+}
+
+/* Scrollbar estilizada */
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #414868; 
+    border-radius: 4px;
+}
+
+/* Texto e Input */
+pre {
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.highlight {
+    color: #7aa2f7;
+    font-weight: bold;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.prompt {
+    color: #9ece6a; /* Verde */
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#command-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    flex-grow: 1;
+    outline: none;
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Para Tablets e Telas menores que 850px */
+@media (max-width: 850px) {
+    .terminal-window {
+        width: 90%;
+        height: 80vh;
+    }
+}
+
+/* Para Celulares (max-width 600px) */
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start; /* Joga para o topo no celular */
+        padding-top: 20px;
+        background: #16161e; /* Fundo sólido igual ao terminal no mobile */
+    }
+
+    .terminal-window {
+        width: 100%;
+        height: 100vh; /* Ocupa a tela toda */
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .terminal-header {
+        display: none; /* Opcional: esconde a barra superior no celular para ganhar espaço */
+    }
+    
+    .terminal-body {
+        padding: 10px;
+        font-size: 12px; /* Fonte levemente menor */
+    }
+    
+    #command-input {
+        font-size: 16px; /* Evita zoom automático no iOS ao focar */
+    }
+}
