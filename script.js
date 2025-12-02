@@ -25,36 +25,49 @@ const resume = {
         "Bacharelado em Administração de Empresas - FMU-SP (2009-2012)",
         "Bacharelado em Engenharia Civil - FMU-SP (2014-2020)"
     ],
-    // NOVOS PROJETOS COM LINKS ATUALIZADOS
+   // NOVOS PROJETOS COM LISTA DE CLIENTES
     projects: [
         { 
             name: "Endogamia Barbalhense (Genealogia Digital)", 
             url: "http://www.endogamiabarbalhense.com.br",
-            desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento e digitalização de dados genealógicos complexos, aplicando lógica de banco de dados relacional."
+            desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica."
         },
         { 
             name: "Studio Bianca Machado (Site de Fotografia)", 
             url: "http://www.biancamachado.com.br",
-            desc: "Criação do portal e otimização de imagens, focando em performance e apresentação visual de portfólio."
+            desc: "Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio."
         },
         { 
             name: "Livro Genealógico (Escrita e Design)", 
             url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
-            desc: "Projeto autoral de preservação histórica, envolvendo tratamento de documentos, escrita e design/diagramação (PDF)."
+            desc: "Projeto autoral de preservação histórica, envolvendo tratamento de documentos, escrita e diagramação."
         },
         { 
-            name: "Lista de Clientes/Portfólio (Diversos)", 
-            url: "#", // Não tem URL específica, apenas mostra o comando
-            desc: "Sites criados sob demanda para diversos clientes, utilizando stack Front-End (HTML/CSS/JS) e ferramentas de design."
+            name: "Clientes (Sites Desenvolvidos)", 
+            url: "https://jsinatro.github.io/sinatro/", // Este é um ID especial, veja a nota abaixo
+            desc: "Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS)."
         }
     ],
+    // CONTATO (Atualizado com todos os links)
     social: {
         github: "https://github.com/jsinatro",
-        linkedin: "https://linkedin.com/in/jsinatro",
-        whatsapp: "wa.me/551199649465",
-        email: "joaosinatro@endogamiabarbalhense.com.br"
+        linkedin: "https://linkedin.com/in/jsinatro", 
+        email: "joaosinatro@endogamiabarbalhense.com.br", 
+        whatsapp: "5511996495465", 
+        // NOVO: Adicione seu nome de usuário
+        familysearch_user: "@sinatro", 
+        // Link principal do site, que será usado para o clique
+        familysearch: "https://www.familysearch.org/pt/", 
+        endogamia: "http://www.endogamiabarbalhense.com.br"
     }
 };
+const clientProjects = [
+    { name: "Website Institucional", client: "Escritório de Contabilidade Alpha", url: "https://exemplo-alpha.com.br" },
+    { name: "Landing Page de Produto", client: "Consultoria de Marketing Digital (ME)", url: "https://exemplo-consultoria.com" },
+    { name: "Página de Eventos", client: "Casa de Eventos The Venue", url: "https://exemplo-venue.com" },
+    { name: "Blog Pessoal", client: "Advogado Dr. Pedro Alvares", url: "https://exemplo-advogado.com.br" },
+    // Adicione mais clientes aqui!
+];
 
 // --- LÓGICA DO TERMINAL ---
 const inputField = document.getElementById('command-input');
@@ -168,10 +181,25 @@ function showProjects() {
 }
 
 function showContact() {
-    addOutputLine("<span class='header'>--- CONTATO ---</span>");
-    addOutputLine(`GitHub:   <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
-    addOutputLine(`LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
-    addOutputLine(`Email:    ${resume.social.email}`);
+    addOutputLine("<span class='header'>--- CONTATO (contact) ---</span>");
+    
+    // Links para Redes Profissionais
+    addOutputLine("Redes Profissionais:");
+    addOutputLine(`  > GitHub: <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
+    addOutputLine(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
+    
+    // Contato Direto
+    addOutputLine("<br>Contato Direto:");
+    addOutputLine(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
+    addOutputLine(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">(11) 99649-5465</a>`);
+    
+    // Projetos/Interesses (Genealogia)
+    addOutputLine("<br>Projetos de Interesse:");
+    // NOVO: Exibe o nome de usuário ao lado do link
+    addOutputLine(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">www.familysearch.org</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
+    addOutputLine(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
+    
+    addOutputLine("<br>Entre em contato para um café virtual!");
 }
 
 function showAll() {
