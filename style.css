@@ -94,9 +94,8 @@ pre {
 }
 
 .prompt {
-    color: #9ece6a;
+    color: #ffffff;
     margin-right: 10px;
-    font-weight: bold;
 }
 
 #command-input {
@@ -162,7 +161,7 @@ pre {
 
 /* Comandos na lista de help - Ciano */
 .cmd {
-    color: #7dcfff;
+    color: #5bf838;
     font-weight: bold;
 }
 

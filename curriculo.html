@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>João Sinatro - Currículo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        /* Container do currículo */
+        .curriculo {
+            max-width: 210mm; /* A4 */
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Cabeçalho */
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1e1e2e;
+            margin-bottom: 25px;
+        }
+
+        .info-pessoal {
+            flex: 1;
+        }
+
+        .nome {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e1e2e;
+            margin-bottom: 5px;
+        }
+
+        .titulo {
+            font-size: 18px;
+            color: #7aa2f7;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .contato {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .contato-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .contato-item i {
+            color: #7aa2f7;
+            width: 20px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            border: 3px solid #7aa2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #7aa2f7;
+        }
+
+        /* Seções */
+        .secao {
+            margin-bottom: 25px;
+        }
+
+        .secao-titulo {
+            font-size: 18px;
+            color: #1e1e2e;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #7aa2f7;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .secao-titulo i {
+            margin-right: 10px;
+            color: #7aa2f7;
+        }
+
+        /* Sobre */
+        .sobre-texto {
+            text-align: justify;
+            font-size: 15px;
+            color: #444;
+        }
+
+        /* Habilidades */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-categoria {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #7aa2f7;
+        }
+
+        .skill-categoria h3 {
+            color: #1e1e2e;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-categoria h3 i {
+            margin-right: 8px;
+            color: #7aa2f7;
+        }
+
+        .skill-lista {
+            list-style-type: none;
+            padding-left: 5px;
+        }
+
+        .skill-lista li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+            font-size: 14px;
+        }
+
+        /* Formação */
+        .formacao-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .formacao-item:last-child {
+            border-bottom: none;
+        }
+
+        .formacao-curso {
+            font-weight: 600;
+            color: #2a2a40;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .formacao-instituicao {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .formacao-periodo {
+            color: #777;
+            font-size: 14px;
+            background-color: #f0f7ff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Projetos */
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .projeto-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .projeto-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .projeto-nome {
+            font-weight: 600;
+            color: #2a2a40;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .projeto-desc {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .projeto-link {
+            font-size: 14px;
+            color: #7aa2f7;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .projeto-link:hover {
+            text-decoration: underline;
+        }
+
+        .projeto-link i {
+            margin-right: 5px;
+        }
+
+        /* Contato */
+        .contato-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contato-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contato-card i {
+            font-size: 24px;
+            color: #7aa2f7;
+            margin-bottom: 10px;
+        }
+
+        .contato-card h3 {
+            font-size: 16px;
+            color: #2a2a40;
+            margin-bottom: 8px;
+        }
+
+        .contato-card a {
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .contato-card a:hover {
+            color: #7aa2f7;
+            text-decoration: underline;
+        }
+
+        /* Rodapé */
+        .rodape {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .links-rapidos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .links-rapidos a {
+            color: #7aa2f7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .links-rapidos a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade para impressão */
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .curriculo {
+                box-shadow: none;
+                padding: 20px;
+                min-height: auto;
+            }
+            
+            .projeto-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="curriculo">
+        <!-- Cabeçalho -->
+        <header class="cabecalho">
+            <div class="info-pessoal">
+                <h1 class="nome">João Sinatro</h1>
+                <p class="titulo">Desenvolvedor Web & Engenheiro de Soluções</p>
+                <div class="contato">
+                    <div class="contato-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>joaosinatro@endogamiabarbalhense.com.br</span>
+                    </div>
+                    <div class="contato-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(11) 99649-5465</span>
+                    </div>
+                    <div class="contato-item">
+                        <i class="fab fa-github"></i>
+                        <span>github.com/jsinatro</span>
+                    </div>
+                    <div class="contato-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin.com/in/jsinatro</span>
+                    </div>
+                </div>
+            </div>
+            <div class="avatar">
+                <i class="fas fa-terminal"></i>
+            </div>
+        </header>
+
+        <!-- Sobre -->
+        <section class="secao">
+            <h2 class="secao-titulo"><i class="fas fa-user"></i> Sobre</h2>
+            <p class="sobre-texto">
+                Desenvolvedor Web e Engenheiro de Soluções. Especializado em criar aplicações web performáticas (HTML, CSS, JavaScript) e automações inteligentes com Python. Transformo dados dispersos em insights acionáveis através de cruzamento e integração de dados. Minha abordagem combina lógica sistêmica e resolução avançada de problemas (troubleshooting) para entregar código limpo, escalável e soluções robustas. Sou um entusiasta do código aberto, contribuindo ativamente para a comunidade, e mantenho-me em constante evolução através do aprendizado autodidata e proativo.
+            </p>
+        </section>
+
+        <!-- Habilidades -->
+        <section class="secao">
+            <h2 class="secao-titulo"><i class="fas fa-code"></i> Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-categoria">
+                    <h3><i class="fas fa-laptop-code"></i> Desenvolvimento Web & Front-end</h3>
+                    <ul class="skill-lista">
+                        <li><strong>Tecnologias Core:</strong> HTML5, CSS3 (Responsividade, Flexbox/Grid), JavaScript (ES6+), DOM</li>
+                        <li><strong>CMS & Construtores de Sites:</strong> WordPress, Elementor, Divi</li>
+                        <li><strong>Filosofia & Controle:</strong> Git, GitHub, VS Code, Linux (Ambiente Open Source)</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-categoria">
+                    <h3><i class="fas fa-cogs"></i> Back-end, Scripting & Automação</h3>
+                    <ul class="skill-lista">
+                        <li><strong>Linguagens:</strong> Python (Automação, Scripting, Tratamento de Dados), VBA (Macros Excel)</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-categoria">
+                    <h3><i class="fas fa-paint-brush"></i> Design Gráfico & Multimídia</h3>
+                    <ul class="skill-lista">
+                        <li><strong>Domínio em Open Source:</strong> GIMP e Inkscape para edição e vetorização</li>
+                        <li><strong>Experiência Profissional:</strong> Adobe Photoshop e CorelDRAW</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-categoria">
+                    <h3><i class="fas fa-cube"></i> Engenharia, Modelagem 3D & CAD</h3>
+                    <ul class="skill-lista">
+                        <li><strong>Domínio em Open Source:</strong> Blender (3D) e LibreCAD (Projetos 2D)</li>
+                        <li><strong>Experiência Profissional:</strong> AutoCAD, Revit, SketchUp</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-categoria">
+                    <h3><i class="fas fa-tools"></i> Produtividade & Ferramentas de Escritório</h3>
+                    <ul class="skill-lista">
+                        <li><strong>Domínio em Open Source:</strong> LibreOffice Suite completa</li>
+                        <li><strong>Experiência Profissional:</strong> Pacote Microsoft Office completo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formação -->
+        <section class="secao">
+            <h2 class="secao-titulo"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
+            <div class="formacao-item">
+                <p class="formacao-curso">Bacharelado em Engenharia Civil</p>
+                <p class="formacao-instituicao">FMU-SP</p>
+                <p class="formacao-periodo">2014 - 2020</p>
+            </div>
+            <div class="formacao-item">
+                <p class="formacao-curso">Bacharelado em Administração de Empresas</p>
+                <p class="formacao-instituicao">FMU-SP</p>
+                <p class="formacao-periodo">2009 - 2012</p>
+            </div>
+            <p class="sobre-texto" style="margin-top: 15px; font-style: italic;">
+                Minha trajetória combina Engenharia Civil e Administração de Empresas. Esta dupla formação me proporciona uma visão única: a precisão técnica e metodológica do engenheiro aliada à perspectiva estratégica e de negócios do administrador. Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais.
+            </p>
+        </section>
+
+        <!-- Projetos -->
+        <section class="secao">
+            <h2 class="secao-titulo"><i class="fas fa-project-diagram"></i> Projetos Destacados</h2>
+            <div class="projetos-grid">
+                <div class="projeto-card">
+                    <h3 class="projeto-nome">Endogamia Barbalhense</h3>
+                    <p class="projeto-desc">Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica.</p>
+                    <a href="http://www.endogamiabarbalhense.com.br" class="projeto-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Acessar projeto
+                    </a>
+                </div>
+                
+                <div class="projeto-card">
+                    <h3 class="projeto-nome">Studio Bianca Machado</h3>
+                    <p class="projeto-desc">Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio.</p>
+                    <a href="http://www.biancamachado.com.br" class="projeto-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Acessar projeto
+                    </a>
+                </div>
+                
+                <div class="projeto-card">
+                    <h3 class="projeto-nome">Livro Genealógico (Maria Avelina de Sousa)</h3>
+                    <p class="projeto-desc">Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos.</p>
+                    <a href="https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view" class="projeto-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visualizar livro
+                    </a>
+                </div>
+                
+                <div class="projeto-card">
+                    <h3 class="projeto-nome">Clientes (Sites Desenvolvidos)</h3>
+                    <p class="projeto-desc">Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS).</p>
+                    <a href="https://jsinatro.github.io/sinatro/#" class="projeto-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Ver portfólio completo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato -->
+        <section class="secao">
+            <h2 class="secao-titulo"><i class="fas fa-address-card"></i> Contato</h2>
+            <div class="contato-grid">
+                <div class="contato-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>E-mail</h3>
+                    <a href="mailto:joaosinatro@endogamiabarbalhense.com.br">joaosinatro@endogamiabarbalhense.com.br</a>
+                </div>
+                
+                <div class="contato-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Telefone / WhatsApp</h3>
+                    <a href="https://wa.me/5511996495465">(11) 99649-5465</a>
+                </div>
+                
+                <div class="contato-card">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/jsinatro" target="_blank">github.com/jsinatro</a>
+                </div>
+                
+                <div class="contato-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                    <a href="https://linkedin.com/in/jsinatro" target="_blank">linkedin.com/in/jsinatro</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="rodape">
+            <p>Portfólio interativo disponível em: <strong>https://jsinatro.github.io/sinatro/</strong></p>
+            <div class="links-rapidos">
+                <a href="https://jsinatro.github.io/sinatro/#" target="_blank">Portfólio Web</a>
+                <a href="http://www.endogamiabarbalhense.com.br" target="_blank">Projeto Genealógico</a>
+                <a href="https://www.familysearch.org/pt/" target="_blank">FamilySearch</a>
+            </div>
+            <p style="margin-top: 15px; font-size: 12px;">
+                Atualizado em: <span id="data-atual"></span> | Desenvolvido com HTML, CSS e JavaScript
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Adiciona a data atual
+        const data = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('data-atual').textContent = data.toLocaleDateString('pt-BR', options);
+        
+        // Adiciona funcionalidade de impressão
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>

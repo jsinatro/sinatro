@@ -71,10 +71,10 @@ function copyOutputToClipboard() {
     const outputText = document.getElementById('output').innerText;
     navigator.clipboard.writeText(outputText)
         .then(() => {
-            addOutputLine("✓ Texto copiado para a área de transferência!");
+            addOutputLine("<span class='success'>✓ Texto copiado para a área de transferência!</span>");
         })
         .catch(err => {
-            addOutputLine("✗ Erro ao copiar texto.");
+            addOutputLine("<span class='error'>✗ Erro ao copiar texto.</span>");
         });
 }
 
@@ -169,8 +169,6 @@ function showEducation() {
 function showProjects() {
     addOutputLine("<span class='header'>--- PROJETOS ---</span>");
     resume.projects.forEach((proj, index) => {
-        // Extrai o texto limpo do nome (sem tags HTML) para mostrar
-        const cleanName = proj.name.replace(/<[^>]*>/g, '');
         const isLink = proj.name.includes('<a ');
         
         if (isLink) {
@@ -320,7 +318,7 @@ function processCommand(command) {
             break;
             
         default:
-            addOutputLine(`Comando '${cmd}' não encontrado. Digite 'help'.`);
+            addOutputLine(`<span class='error'>Comando '${cmd}' não encontrado. Digite 'help'.</span>`);
     }
 }
 
