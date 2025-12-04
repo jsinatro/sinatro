@@ -1,50 +1,50 @@
 const resume = {
     about: "Desenvolvedor Web e Engenheiro de Soluções. Especializado em criar aplicações web performáticas (HTML, CSS, JavaScript) e automações inteligentes com Python. Transformo dados dispersos em insights acionáveis através de cruzamento e integração de dados. Minha abordagem combina lógica sistêmica e resolução avançada de problemas (troubleshooting) para entregar código limpo, escalável e soluções robustas. Sou um entusiasta do código aberto, contribuindo ativamente para a comunidade, e mantenho-me em constante evolução através do aprendizado autodidata e proativo.",
     skills: [
-    "<span class='header'>💻 DESENVOLVIMENTO WEB & FRONT-END</span>",
-    "<strong>Tecnologias Core:</strong> HTML5, CSS3 (Responsividade, Flexbox/Grid), JavaScript (ES6+), DOM.",
-    "<strong>CMS & Construtores de Sites:</strong> <span class='highlight'>WordPress</span>, Elementor, Divi.",
-    "<strong>Filosofia & Controle:</strong> Git, GitHub, VS Code, <span class='cmd'>Linux (Ambiente Open Source)</span>.",
+        "<span class='header'>💻 DESENVOLVIMENTO WEB & FRONT-END</span>",
+        "<strong>Tecnologias Core:</strong> HTML5, CSS3 (Responsividade, Flexbox/Grid), JavaScript (ES6+), DOM.",
+        "<strong>CMS & Construtores de Sites:</strong> <span class='highlight'>WordPress</span>, Elementor, Divi.",
+        "<strong>Filosofia & Controle:</strong> Git, GitHub, VS Code, <span class='cmd'>Linux (Ambiente Open Source)</span>.",
 
-    "<span class='header'>⚙️ BACK-END, SCRIPTING & AUTOMAÇÃO</span>",
-    "<strong>Linguagens:</strong> <span class='highlight'>Python</span> (Automação, Scripting, Tratamento de Dados), VBA (Macros Excel).",
+        "<span class='header'>⚙️ BACK-END, SCRIPTING & AUTOMAÇÃO</span>",
+        "<strong>Linguagens:</strong> <span class='highlight'>Python</span> (Automação, Scripting, Tratamento de Dados), VBA (Macros Excel).",
 
-    "<span class='header'>🎨 DESIGN GRÁFICO & MULTIMÍDIA</span>",
-    "Edição e vetorização no ecossistema aberto: <span class='cmd'>GIMP</span> e <span class='cmd'>Inkscape</span> são minha escolha principal.",
-    "Para projetos específicos, também navego com fluência em Adobe Photoshop e CorelDRAW.",
+        "<span class='header'>🎨 DESIGN GRÁFICO & MULTIMÍDIA</span>",
+        "Edição e vetorização no ecossistema aberto: <span class='cmd'>GIMP</span> e <span class='cmd'>Inkscape</span> são minha escolha principal.",
+        "Para projetos específicos, também navego com fluência em Adobe Photoshop e CorelDRAW.",
 
-    "<span class='header'>📐 ENGENHARIA, MODELAGEM 3D & CAD</span>",
-    "Modelo e projeto com ferramentas livres: <span class='cmd'>Blender</span> para 3D e <span class='cmd'>LibreCAD</span> para projetos 2D.",
-    "Tenho experiência complementar no ambiente corporativo com AutoCAD, Revit e SketchUp.",
+        "<span class='header'>📐 ENGENHARIA, MODELAGEM 3D & CAD</span>",
+        "Modelo e projeto com ferramentas livres: <span class='cmd'>Blender</span> para 3D e <span class='cmd'>LibreCAD</span> para projetos 2D.",
+        "Tenho experiência complementar no ambiente corporativo com AutoCAD, Revit e SketchUp.",
 
-    "<span class='header'>🛠️ PRODUTIVIDADE & FERRAMENTAS DE ESCRITÓRIO</span>",
-    "Minha suite de produtividade padrão é o <span class='cmd'>LibreOffice</span>.",
-    "Opero com igual competência no Pacote Microsoft Office para integração em fluxos empresariais."
-],
+        "<span class='header'>🛠️ PRODUTIVIDADE & FERRAMENTAS DE ESCRITÓRIO</span>",
+        "Minha suite de produtividade padrão é o <span class='cmd'>LibreOffice</span>.",
+        "Opero com igual competência no Pacote Microsoft Office para integração em fluxos empresariais."
+    ],
     education: [
-    "Minha trajetória combina <strong>Engenharia Civil (FMU-SP, 2014-2020)</strong> e <strong>Administração de Empresas (FMU-SP, 2009-2012)</strong>.",
-    "",
-    "Esta dupla formação me proporciona uma visão única: a precisão técnica e metodológica do engenheiro aliada à perspectiva estratégica e de negócios do administrador.",
-    "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
-],
+        "Minha trajetória combina <strong>Engenharia Civil (FMU-SP, 2014-2020)</strong> e <strong>Administração de Empresas (FMU-SP, 2009-2012)</strong>.",
+        "",
+        "Esta dupla formação me proporciona uma visão única: a precisão técnica e metodológica do engenheiro aliada à perspectiva estratégica e de negócios do administrador.",
+        "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
+    ],
     projects: [
         { 
-            name: "Endogamia Barbalhense (Projeto pessoal de genealogia)", 
+            name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense (Projeto pessoal de genealogia)</a>", 
             url: "http://www.endogamiabarbalhense.com.br",
             desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica."
         },
         { 
-            name: "Studio Bianca Machado (Site de Fotografia)", 
+            name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado (Site de Fotografia)</a>", 
             url: "http://www.biancamachado.com.br",
             desc: "Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio."
         },
         { 
-            name: "Livro Genealógico (Maria Avelina de Sousa)", 
+            name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (Maria Avelina de Sousa)</a>", 
             url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
             desc: "Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos. Envolvendo tratamento de documentos, escrita, diagramação e publicação."
         },
         { 
-            name: "Clientes (Sites Desenvolvidos)", 
+            name: "<a href='https://jsinatro.github.io/sinatro/#' target='_blank' rel='noopener noreferrer'>Clientes (Sites Desenvolvidos)</a>",
             url: "LISTA_CLIENTES", 
             desc: "Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS)."
         }
@@ -81,20 +81,24 @@ function copyOutputToClipboard() {
 const inputField = document.getElementById('command-input');
 const outputDiv = document.getElementById('output');
 const terminalBody = document.getElementById('terminal-body');
-const promptText = "user@sinatro:~$";
+const promptText = "visitante@sinatro: ~$";
 
 let waitingForProjectSelection = false;
 
 window.onload = async () => {
+    outputDiv.innerHTML = '';
+    
     inputField.disabled = true;
     await typeText("Inicializando kernel...", 50);
     await typeText("Carregando módulos de interface...", 30);
     await typeText("Montando sistema de arquivos...", 30);
     await delay(500);
+    
     outputDiv.innerHTML = '';
     addOutputLine("João Sinatro v2.1.4 - Conectado como visitante", false);
     addOutputLine("Digite <span class='cmd'>help</span> ou <span class='cmd'>ls</span> para ver a lista de comandos.", false);
     addOutputLine("", false);
+    
     inputField.disabled = false;
     inputField.focus();
 };
@@ -165,7 +169,11 @@ function showEducation() {
 function showProjects() {
     addOutputLine("<span class='header'>--- PROJETOS ---</span>");
     resume.projects.forEach((proj, index) => {
-        addOutputLine(`[${index + 1}] <span class='highlight'>${proj.name}</span>`);
+        if (proj.name.includes('<a ')) {
+            addOutputLine(`[${index + 1}] ${proj.name}`);
+        } else {
+            addOutputLine(`[${index + 1}] <span class='highlight'>${proj.name}</span>`);
+        }
         addOutputLine(`    - ${proj.desc}`);
         addOutputLine(``);
     });
@@ -235,11 +243,10 @@ function processCommand(command) {
         if (index >= 0 && index < resume.projects.length) {
             const proj = resume.projects[index];
             
-            // LÓGICA PARA TRATAR O ID ESPECIAL LISTA_CLIENTES
             if (proj.url === "LISTA_CLIENTES") { 
                 showClientList();
             } else {
-                addOutputLine(`Abrindo ${proj.name}...`);
+                addOutputLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
                 window.open(proj.url, '_blank');
             }
             waitingForProjectSelection = false;
@@ -252,9 +259,9 @@ function processCommand(command) {
     // Comandos Normais
     switch (cmd) {
         case 'copy':
-        copyOutputToClipboard();
-        break;
-        
+            copyOutputToClipboard();
+            break;
+            
         case 'help': 
         case '?':
         case 'ls':
@@ -319,9 +326,7 @@ inputField.addEventListener('keydown', (e) => {
         processCommand(cmd);
     }
     
-    // Permitir Ctrl+C mesmo quando o input está vazio
     if (e.ctrlKey && e.key === 'c') {
-        // Não faz nada - permite que o Ctrl+C padrão funcione
         return;
     }
 });
