@@ -147,7 +147,7 @@ function showHelp() {
 
     addOutputLine("<span class='header'>--- COMANDOS DISPONÍVEIS ---</span>");
     commands.forEach(c => {
-        addOutputLine(`<span class='cmd'>${c.cmd.padEnd(20)}</span> - ${c.desc}`); 
+        addOutputLine(`<span class='cmd'>${c.cmd.padEnd(20)}</span> <span class='desc'>- ${c.desc}</span>`); 
     });
 }
 
@@ -169,12 +169,18 @@ function showEducation() {
 function showProjects() {
     addOutputLine("<span class='header'>--- PROJETOS ---</span>");
     resume.projects.forEach((proj, index) => {
-        if (proj.name.includes('<a ')) {
-            addOutputLine(`[${index + 1}] ${proj.name}`);
+        // Extrai o texto limpo do nome (sem tags HTML) para mostrar
+        const cleanName = proj.name.replace(/<[^>]*>/g, '');
+        const isLink = proj.name.includes('<a ');
+        
+        if (isLink) {
+            // Se já é um link, mostra como está
+            addOutputLine(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
         } else {
-            addOutputLine(`[${index + 1}] <span class='highlight'>${proj.name}</span>`);
+            // Se não é link, mostra como texto normal
+            addOutputLine(`[<span class='project-number'>${index + 1}</span>] <span class='highlight'>${proj.name}</span>`);
         }
-        addOutputLine(`    - ${proj.desc}`);
+        addOutputLine(`    <span class='desc'>- ${proj.desc}</span>`);
         addOutputLine(``);
     });
     addOutputLine("Digite o número do projeto para abrir ou 'sair' para cancelar.");
@@ -205,7 +211,7 @@ function showContact() {
     
     addOutputLine("<br>Contato Direto:");
     addOutputLine(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
-    addOutputLine(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">(11) 99649-5465</a>`);
+    addOutputLine(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">+5511996495465</a>`);
     
     addOutputLine("<br>Projetos de Interesse:");
     addOutputLine(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);

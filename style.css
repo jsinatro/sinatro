@@ -68,15 +68,6 @@ body {
     font-size: 14px;
     overflow-y: auto;
     cursor: text;
-    color: #7aa2f7;
-    text-decoration: none;
-    border-bottom: 1px dashed #7aa2f7;
-}
-
-.terminal-body a:hover {
-    background-color: #7aa2f7;
-    color: #1a1b26;
-}
 }
 
 /* Scrollbar estilizada */
@@ -93,11 +84,7 @@ pre {
     white-space: pre-wrap;
     margin-bottom: 5px;
     line-height: 1.5;
-}
-
-.highlight {
-    color: #7aa2f7;
-    font-weight: bold;
+    color: #c0caf5; /* Cor padrão do texto */
 }
 
 .input-line {
@@ -115,7 +102,7 @@ pre {
 #command-input {
     background: transparent;
     border: none;
-    color: #fff;
+    color: #c0caf5;
     font-family: 'Fira Code', monospace;
     font-size: 14px;
     flex-grow: 1;
@@ -161,9 +148,10 @@ pre {
         font-size: 16px;
     }
 }
-/* Estilos de Texto do Currículo */
 
-/* Cabeçalhos de seção (--- XP ---) */
+/* Estilos de Texto do Currículo - Cores do Terminal */
+
+/* Cabeçalhos de seção (--- XP ---) - Amarelo/Laranja */
 .header {
     color: #e0af68;
     font-weight: bold;
@@ -172,34 +160,50 @@ pre {
     margin-bottom: 5px;
 }
 
-/* Comandos na lista de help */
+/* Comandos na lista de help - Ciano */
 .cmd {
     color: #7dcfff;
     font-weight: bold;
 }
 
-/* Destaque (Nome da empresa/projeto) */
+/* Destaque (Nome da empresa/projeto) - Roxo/Magenta */
 .highlight {
     color: #bb9af7;
     font-weight: bold;
 }
 
-/* Prompt */
-.prompt {
-    color: #9ece6a;
-    margin-right: 8px;
-    font-weight: bold;
-}
-
-/* Links */
+/* Links - Azul */
 a {
     color: #7aa2f7;
     text-decoration: none;
     border-bottom: 1px dashed #7aa2f7;
+    transition: all 0.2s ease;
 }
+
 a:hover {
     background-color: #7aa2f7;
     color: #1a1b26;
+    border-bottom: 1px solid #7aa2f7;
+}
+
+/* Texto normal - Branco azulado */
+.normal {
+    color: #c0caf5;
+}
+
+/* Verde para sucesso/confirmação */
+.success {
+    color: #9ece6a;
+}
+
+/* Vermelho para erros */
+.error {
+    color: #f7768e;
+}
+
+/* Texto do prompt - Verde mais forte */
+.prompt-text {
+    color: #73daca;
 }
 
 #output {
@@ -217,4 +221,16 @@ pre {
 /* Quando o mouse estiver sobre texto selecionável */
 #output:hover {
     cursor: text;
+}
+
+/* Estilo para os números dos projetos */
+.project-number {
+    color: #7dcfff;
+    font-weight: bold;
+}
+
+/* Estilo para as descrições */
+.desc {
+    color: #a9b1d6;
+    font-style: italic;
 }
