@@ -1,20 +1,35 @@
 const resume = {
-    about: "Desenvolvedor Web e Engenheiro de Soluções. Meu foco é na criação de aplicações web funcionais (HTML, CSS, JavaScript) e na automação de processos com Python. Aplico a lógica sistêmica e a capacidade de solucionar problemas complexos (troubleshooting) para entregar código limpo e soluções robustas. Sou proativo e autodidata, sempre focado em aprender e evoluir a stack tecnológica.",
+    about: "Desenvolvedor Web e Engenheiro de Soluções. Especializado em criar aplicações web performáticas (HTML, CSS, JavaScript) e automações inteligentes com Python. Transformo dados dispersos em insights acionáveis através de cruzamento e integração de dados. Minha abordagem combina lógica sistêmica e resolução avançada de problemas (troubleshooting) para entregar código limpo, escalável e soluções robustas. Sou um entusiasta do código aberto, contribuindo ativamente para a comunidade, e mantenho-me em constante evolução através do aprendizado autodidata e proativo.",
     skills: [
-        "<span class='header'>CORE DEV:</span> HTML5, CSS3 (Responsividade, Flexbox), JavaScript (ES6+), Manipulação de DOM.",
-        "<span class='header'>SCRIPTING:</span> Python (Automação, Tratamento de Dados), VBA/Macros.",
-        "<span class='header'>FILOSOFIA TECH:</span> Git/GitHub, VS Code, <span class='highlight'>Linux (Ambiente Open Source)</span>.",
-        "<span class='header'>DESIGN GRÁFICO:</span> Photoshop e Corel Draw (Proprietário) | <span class='cmd'>GIMP</span> e <span class='cmd'>Inkscape</span> (Open Source).",
-        "<span class='header'>ENGENHARIA/3D:</span> Autocad, Revit, Sketchup (Proprietário) | <span class='cmd'>LibreCAD</span> e <span class='cmd'>Blender</span> (Open Source).",
-        "<span class='header'>PRODUTIVIDADE:</span> Pacote Office Completo (MS Office) | <span class='cmd'>LibreOffice</span> (Open Source)."
-    ],
+    "<span class='header'>💻 DESENVOLVIMENTO WEB & FRONT-END</span>",
+    "<strong>Tecnologias Core:</strong> HTML5, CSS3 (Responsividade, Flexbox/Grid), JavaScript (ES6+), DOM.",
+    "<strong>CMS & Construtores de Sites:</strong> <span class='highlight'>WordPress</span>, Elementor, Divi.",
+    "<strong>Filosofia & Controle:</strong> Git, GitHub, VS Code, <span class='cmd'>Linux (Ambiente Open Source)</span>.",
+
+    "<span class='header'>⚙️ BACK-END, SCRIPTING & AUTOMAÇÃO</span>",
+    "<strong>Linguagens:</strong> <span class='highlight'>Python</span> (Automação, Scripting, Tratamento de Dados), VBA (Macros Excel).",
+
+    "<span class='header'>🎨 DESIGN GRÁFICO & MULTIMÍDIA</span>",
+    "Edição e vetorização no ecossistema aberto: <span class='cmd'>GIMP</span> e <span class='cmd'>Inkscape</span> são minha escolha principal.",
+    "Para projetos específicos, também navego com fluência em Adobe Photoshop e CorelDRAW.",
+
+    "<span class='header'>📐 ENGENHARIA, MODELAGEM 3D & CAD</span>",
+    "Modelo e projeto com ferramentas livres: <span class='cmd'>Blender</span> para 3D e <span class='cmd'>LibreCAD</span> para projetos 2D.",
+    "Tenho experiência complementar no ambiente corporativo com AutoCAD, Revit e SketchUp.",
+
+    "<span class='header'>🛠️ PRODUTIVIDADE & FERRAMENTAS DE ESCRITÓRIO</span>",
+    "Minha suite de produtividade padrão é o <span class='cmd'>LibreOffice</span>.",
+    "Opero com igual competência no Pacote Microsoft Office para integração em fluxos empresariais."
+],
     education: [
-        "Bacharelado em Administração de Empresas - FMU-SP (2009-2012)",
-        "Bacharelado em Engenharia Civil - FMU-SP (2014-2020)"
-    ],
+    "Minha trajetória combina <strong>Engenharia Civil (FMU-SP, 2014-2020)</strong> e <strong>Administração de Empresas (FMU-SP, 2009-2012)</strong>.",
+    "",
+    "Esta dupla formação me proporciona uma visão única: a precisão técnica e metodológica do engenheiro aliada à perspectiva estratégica e de negócios do administrador.",
+    "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
+],
     projects: [
         { 
-            name: "Endogamia Barbalhense (Genealogia Digital)", 
+            name: "Endogamia Barbalhense (Projeto pessoal de genealogia)", 
             url: "http://www.endogamiabarbalhense.com.br",
             desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica."
         },
@@ -24,9 +39,9 @@ const resume = {
             desc: "Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio."
         },
         { 
-            name: "Livro Genealógico (Escrita e Design)", 
+            name: "Livro Genealógico (Maria Avelina de Sousa)", 
             url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
-            desc: "Projeto autoral de preservação histórica, envolvendo tratamento de documentos, escrita e diagramação."
+            desc: "Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos. Envolvendo tratamento de documentos, escrita, diagramação e publicação."
         },
         { 
             name: "Clientes (Sites Desenvolvidos)", 
@@ -52,6 +67,17 @@ const clientProjects = [
     { name: "Blog Pessoal", client: "Advogado Dr. Pedro Alvares", url: "https://exemplo-advogado.com.br" },
 ];
 
+function copyOutputToClipboard() {
+    const outputText = document.getElementById('output').innerText;
+    navigator.clipboard.writeText(outputText)
+        .then(() => {
+            addOutputLine("✓ Texto copiado para a área de transferência!");
+        })
+        .catch(err => {
+            addOutputLine("✗ Erro ao copiar texto.");
+        });
+}
+
 const inputField = document.getElementById('command-input');
 const outputDiv = document.getElementById('output');
 const terminalBody = document.getElementById('terminal-body');
@@ -66,8 +92,8 @@ window.onload = async () => {
     await typeText("Montando sistema de arquivos...", 30);
     await delay(500);
     outputDiv.innerHTML = '';
-    addOutputLine("Bem-vindo ao João Sinatro v2.0 (Portfolio)", false);
-    addOutputLine("Digite <span class='cmd'>help</span> para ver a lista de comandos.", false);
+    addOutputLine("João Sinatro v2.1.4 - Conectado como visitante", false);
+    addOutputLine("Digite <span class='cmd'>help</span> ou <span class='cmd'>ls</span> para ver a lista de comandos.", false);
     addOutputLine("", false);
     inputField.disabled = false;
     inputField.focus();
@@ -225,6 +251,10 @@ function processCommand(command) {
 
     // Comandos Normais
     switch (cmd) {
+        case 'copy':
+        copyOutputToClipboard();
+        break;
+        
         case 'help': 
         case '?':
         case 'ls':
@@ -288,8 +318,18 @@ inputField.addEventListener('keydown', (e) => {
         inputField.value = '';
         processCommand(cmd);
     }
+    
+    // Permitir Ctrl+C mesmo quando o input está vazio
+    if (e.ctrlKey && e.key === 'c') {
+        // Não faz nada - permite que o Ctrl+C padrão funcione
+        return;
+    }
 });
 
-document.querySelector('.terminal-window').addEventListener('click', () => {
+document.querySelector('.input-line').addEventListener('click', () => {
     inputField.focus();
+});
+
+document.getElementById('output').addEventListener('click', (e) => {
+    e.stopPropagation();
 });

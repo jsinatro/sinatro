@@ -192,3 +192,20 @@ a:hover {
     background-color: #7aa2f7;
     color: #1a1b26;
 }
+
+#output {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+pre {
+    cursor: text;
+    user-select: text;
+}
+
+/* Quando o mouse estiver sobre texto selecionável */
+#output:hover {
+    cursor: text;
+}
