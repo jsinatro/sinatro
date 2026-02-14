@@ -28,34 +28,34 @@ const resume = {
         "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
     ],
     projects: [
-        { 
-            name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense (Projeto pessoal de genealogia)</a>", 
+        {
+            name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense (Projeto pessoal de genealogia)</a>",
             url: "http://www.endogamiabarbalhense.com.br",
             desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica."
         },
-        { 
-            name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado (Site de Fotografia)</a>", 
+        {
+            name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado (Site de Fotografia)</a>",
             url: "http://www.biancamachado.com.br",
             desc: "Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio."
         },
-        { 
-            name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (Maria Avelina de Sousa)</a>", 
+        {
+            name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (Maria Avelina de Sousa)</a>",
             url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
             desc: "Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos. Envolvendo tratamento de documentos, escrita, diagramação e publicação."
         },
-        { 
+        {
             name: "<a href='https://jsinatro.github.io/sinatro/#' target='_blank' rel='noopener noreferrer'>Clientes (Sites Desenvolvidos)</a>",
-            url: "LISTA_CLIENTES", 
+            url: "LISTA_CLIENTES",
             desc: "Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS)."
         }
     ],
     social: {
         github: "https://github.com/jsinatro",
-        linkedin: "https://linkedin.com/in/jsinatro", 
-        email: "joaosinatro@endogamiabarbalhense.com.br", 
-        whatsapp: "5511996495465", 
-        familysearch_user: "@sinatro", 
-        familysearch: "https://www.familysearch.org/pt/", 
+        linkedin: "https://linkedin.com/in/jsinatro",
+        email: "joaosinatro@endogamiabarbalhense.com.br",
+        whatsapp: "5511996495465",
+        familysearch_user: "@sinatro",
+        familysearch: "https://www.familysearch.org/pt/",
         endogamia: "http://www.endogamiabarbalhense.com.br"
     }
 };
@@ -67,40 +67,126 @@ const clientProjects = [
     { name: "Blog Pessoal", client: "Advogado Dr. Pedro Alvares", url: "https://exemplo-advogado.com.br" },
 ];
 
-function copyOutputToClipboard() {
-    const outputText = document.getElementById('output').innerText;
-    navigator.clipboard.writeText(outputText)
-        .then(() => {
-            addOutputLine("<span class='success'>✓ Texto copiado para a área de transferência!</span>");
-        })
-        .catch(err => {
-            addOutputLine("<span class='error'>✗ Erro ao copiar texto.</span>");
-        });
-}
-
 const inputField = document.getElementById('command-input');
 const outputDiv = document.getElementById('output');
 const terminalBody = document.getElementById('terminal-body');
 const promptText = "visitante@sinatro: ~$";
 
 let waitingForProjectSelection = false;
+const commandHistory = [];
+const MAX_HISTORY = 30;
+let historyIndex = 0;
 
-window.onload = async () => {
-    outputDiv.innerHTML = '';
-    
-    inputField.disabled = true;
-    await typeText("Inicializando kernel...", 50);
-    await typeText("Carregando módulos de interface...", 30);
-    await typeText("Montando sistema de arquivos...", 30);
-    await delay(500);
-    
-    outputDiv.innerHTML = '';
-    addOutputLine("João Sinatro v2.1.4 - Conectado como visitante", false);
-    addOutputLine("Dica: clique nos atalhos ou digite <span class='cmd'>help</span>.", false);
-    addOutputLine("", false);
-    
-    inputField.disabled = false;
+const commandAliases = {
+    ajuda: 'help',
+    sobre: 'about',
+    habilidades: 'skills',
+    projetos: 'projects',
+    contato: 'contact',
+    curriculo: 'cv'
+};
+
+function printLine(text, { className = '', isInput = false } = {}) {
+    if (!outputDiv) return;
+
+    const pre = document.createElement('pre');
+    if (className) pre.className = className;
+
+    if (isInput) {
+        const promptSpan = document.createElement('span');
+        promptSpan.className = 'prompt';
+        promptSpan.textContent = promptText;
+        pre.appendChild(promptSpan);
+        pre.append(` ${text}`);
+    } else {
+        pre.textContent = text;
+    }
+
+    outputDiv.appendChild(pre);
+    scrollToBottom();
+}
+
+function printHTMLSafe(containerBuilderFn) {
+    if (!outputDiv || typeof containerBuilderFn !== 'function') return;
+
+    const pre = document.createElement('pre');
+    containerBuilderFn(pre);
+    outputDiv.appendChild(pre);
+    scrollToBottom();
+}
+
+function printTrustedHTML(html) {
+    printHTMLSafe((container) => {
+        container.innerHTML = html;
+    });
+}
+
+function focusInput() {
+    if (!inputField || inputField.disabled) return;
     inputField.focus();
+}
+
+function scrollToBottom() {
+    if (!terminalBody) return;
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+function pushHistory(command) {
+    if (!command) {
+        historyIndex = commandHistory.length;
+        return;
+    }
+
+    commandHistory.push(command);
+    if (commandHistory.length > MAX_HISTORY) {
+        commandHistory.shift();
+    }
+    historyIndex = commandHistory.length;
+}
+
+function copyOutputToClipboard() {
+    if (!outputDiv) return;
+
+    const outputText = outputDiv.innerText;
+    if (!navigator.clipboard) {
+        printLine('Clipboard indisponível neste navegador.', { className: 'error' });
+        return;
+    }
+
+    navigator.clipboard.writeText(outputText)
+        .then(() => {
+            printLine('✓ Texto copiado para a área de transferência!', { className: 'success' });
+        })
+        .catch(() => {
+            printLine('✗ Erro ao copiar texto.', { className: 'error' });
+        });
+}
+
+window.onload = async function() {
+    if (!inputField || !outputDiv || !terminalBody) return;
+
+    outputDiv.textContent = '';
+    inputField.disabled = true;
+
+    await typeText('Inicializando kernel...', 50);
+    await typeText('Carregando módulos de interface...', 30);
+    await typeText('Montando sistema de arquivos...', 30);
+    await delay(500);
+    outputDiv.textContent = '';
+
+    printLine('João Sinatro v2.1.4 - Conectado como visitante');
+    printHTMLSafe((line) => {
+        line.append('Dica: clique nos atalhos ou digite ');
+        const helpTag = document.createElement('span');
+        helpTag.className = 'cmd';
+        helpTag.textContent = 'help';
+        line.appendChild(helpTag);
+        line.append('.');
+    });
+    printLine('');
+
+    inputField.disabled = false;
+    focusInput();
 };
 
 function delay(ms) {
@@ -108,29 +194,16 @@ function delay(ms) {
 }
 
 async function typeText(text, speed) {
+    if (!outputDiv) return;
+
     const pre = document.createElement('pre');
     outputDiv.appendChild(pre);
-    
+
     for (let i = 0; i < text.length; i++) {
         pre.textContent += text.charAt(i);
         scrollToBottom();
         await delay(speed);
     }
-}
-
-function addOutputLine(text, isInput = false) {
-    const pre = document.createElement('pre');
-    if (isInput) {
-        pre.innerHTML = `<span class="prompt">${promptText}</span> ${text}`;
-    } else {
-        pre.innerHTML = text;
-    }
-    outputDiv.appendChild(pre);
-    scrollToBottom();
-}
-
-function scrollToBottom() {
-    terminalBody.scrollTop = terminalBody.scrollHeight;
 }
 
 function showHelp() {
@@ -145,216 +218,252 @@ function showHelp() {
         { cmd: 'clear', desc: 'Limpa a tela do terminal' },
     ];
 
-    addOutputLine("<span class='header'>--- COMANDOS DISPONÍVEIS ---</span>");
+    printTrustedHTML("<span class='header'>--- COMANDOS DISPONÍVEIS ---</span>");
     commands.forEach(c => {
-        addOutputLine(`<span class='cmd'>${c.cmd.padEnd(20)}</span> <span class='desc'>- ${c.desc}</span>`); 
+        printTrustedHTML(`<span class='cmd'>${c.cmd.padEnd(20)}</span> <span class='desc'>- ${c.desc}</span>`);
     });
 }
 
 function showAbout() {
-    addOutputLine("<span class='header'>--- SOBRE MIM ---</span>");
-    addOutputLine(resume.about);
+    printTrustedHTML("<span class='header'>--- SOBRE MIM ---</span>");
+    printTrustedHTML(resume.about);
 }
 
 function showSkills() {
-    addOutputLine("<span class='header'>--- SKILLS ---</span>");
-    resume.skills.forEach(skill => addOutputLine(`- ${skill}`));
+    printTrustedHTML("<span class='header'>--- SKILLS ---</span>");
+    resume.skills.forEach(skill => printTrustedHTML(`- ${skill}`));
 }
 
 function showEducation() {
-    addOutputLine("<span class='header'>--- FORMAÇÃO ---</span>");
-    resume.education.forEach(edu => addOutputLine(`- ${edu}`));
+    printTrustedHTML("<span class='header'>--- FORMAÇÃO ---</span>");
+    resume.education.forEach(edu => printTrustedHTML(`- ${edu}`));
 }
 
 function showProjects() {
-    addOutputLine("<span class='header'>--- PROJETOS ---</span>");
+    printTrustedHTML("<span class='header'>--- PROJETOS ---</span>");
     resume.projects.forEach((proj, index) => {
         const isLink = proj.name.includes('<a ');
-        
+
         if (isLink) {
-            // Se já é um link, mostra como está
-            addOutputLine(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
+            printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
         } else {
-            // Se não é link, mostra como texto normal
-            addOutputLine(`[<span class='project-number'>${index + 1}</span>] <span class='highlight'>${proj.name}</span>`);
+            printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] <span class='highlight'>${proj.name}</span>`);
         }
-        addOutputLine(`    <span class='desc'>- ${proj.desc}</span>`);
-        addOutputLine(``);
+        printTrustedHTML(`    <span class='desc'>- ${proj.desc}</span>`);
+        printLine('');
     });
-    addOutputLine("Digite o número do projeto para abrir ou 'sair' para cancelar.");
+    printLine("Digite o número do projeto para abrir ou 'sair' para cancelar.");
     waitingForProjectSelection = true;
 }
 
 function showClientList() {
-    addOutputLine("<span class='header'>--- SITES DE CLIENTES ---</span>");
-    addOutputLine(`Total de ${clientProjects.length} sites em destaque no portfólio de clientes:`);
-    addOutputLine(``);
-    
+    printTrustedHTML("<span class='header'>--- SITES DE CLIENTES ---</span>");
+    printLine(`Total de ${clientProjects.length} sites em destaque no portfólio de clientes:`);
+    printLine('');
+
     clientProjects.forEach(item => {
-        addOutputLine(`  > <span class='highlight'>${item.name}</span>`);
-        addOutputLine(`    Criado para: ${item.client}`);
-        addOutputLine(`    Link: <a href="${item.url}" target="_blank">${item.url}</a>`);
-        addOutputLine(``);
+        printTrustedHTML(`  > <span class='highlight'>${item.name}</span>`);
+        printLine(`    Criado para: ${item.client}`);
+        printTrustedHTML(`    Link: <a href="${item.url}" target="_blank">${item.url}</a>`);
+        printLine('');
     });
-    
-    addOutputLine("A lista acima não é interativa, apenas de consulta. Use os comandos principais para continuar.");
+
+    printLine('A lista acima não é interativa, apenas de consulta. Use os comandos principais para continuar.');
 }
 
 function showContact() {
-    addOutputLine("<span class='header'>--- CONTATO (contact) ---</span>");
-    
-    addOutputLine("Redes Profissionais:");
-    addOutputLine(`  > GitHub: <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
-    addOutputLine(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
-    
-    addOutputLine("<br>Contato Direto:");
-    addOutputLine(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
-    addOutputLine(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">+5511996495465</a>`);
-    
-    addOutputLine("<br>Projetos de Interesse:");
-    addOutputLine(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
-    addOutputLine(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
-    
-    addOutputLine("<br>Entre em contato para um café virtual!");
+    printTrustedHTML("<span class='header'>--- CONTATO (contact) ---</span>");
+
+    printLine('Redes Profissionais:');
+    printTrustedHTML(`  > GitHub: <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
+    printTrustedHTML(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
+
+    printTrustedHTML('<br>Contato Direto:');
+    printTrustedHTML(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
+    printTrustedHTML(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">+5511996495465</a>`);
+
+    printTrustedHTML('<br>Projetos de Interesse:');
+    printTrustedHTML(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
+    printTrustedHTML(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
+
+    printTrustedHTML('<br>Entre em contato para um café virtual!');
 }
 
 function showAll() {
     showAbout();
-    addOutputLine("");
+    printLine('');
     showSkills();
-    addOutputLine("");
+    printLine('');
     showEducation();
-    addOutputLine("");
+    printLine('');
     showContact();
 }
 
 function executeCommand(command) {
-    const rawCmd = command.trim();
-    if (!rawCmd && !waitingForProjectSelection) return;
-    
-    addOutputLine(rawCmd, true);
-    const cmd = rawCmd.toLowerCase();
+    const cmdRaw = typeof command === 'string' ? command : '';
+    const cmd = cmdRaw.trim();
+    const cmdLower = cmd.toLowerCase();
 
-    // Modo Seleção de Projeto
+    if (!cmd && !waitingForProjectSelection) {
+        focusInput();
+        return;
+    }
+
+    if (cmd) {
+        printLine(cmd, { isInput: true });
+    }
+
     if (waitingForProjectSelection) {
-        if (cmd === 'sair' || cmd === 'cancel' || cmd === 'exit') {
+        if (cmdLower === 'sair' || cmdLower === 'cancel' || cmdLower === 'exit') {
             waitingForProjectSelection = false;
-            addOutputLine("Seleção cancelada.");
+            printLine('Seleção cancelada.');
+            focusInput();
             return;
         }
 
-        const index = parseInt(cmd) - 1;
+        const index = parseInt(cmdLower, 10) - 1;
         if (index >= 0 && index < resume.projects.length) {
             const proj = resume.projects[index];
-            
-            if (proj.url === "LISTA_CLIENTES") { 
+
+            if (proj.url === 'LISTA_CLIENTES') {
                 showClientList();
             } else {
-                addOutputLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
+                printLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
                 window.open(proj.url, '_blank');
             }
             waitingForProjectSelection = false;
         } else {
-            addOutputLine("Número inválido. Tente novamente ou digite 'sair'.");
+            printLine("Número inválido. Tente novamente ou digite 'sair'.", { className: 'error' });
         }
+
+        focusInput();
         return;
     }
 
-    // Comandos Normais
-    switch (cmd) {
+    const [cmdBase, ...args] = cmdLower.split(/\s+/);
+    const normalizedCommand = commandAliases[cmdBase] || cmdBase;
+
+    switch (normalizedCommand) {
         case 'copy':
             copyOutputToClipboard();
             break;
-            
-        case 'help': 
+
+        case 'help':
         case '?':
         case 'ls':
-            showHelp(); 
+            showHelp();
             break;
-            
-        case 'clear': 
-            outputDiv.innerHTML = ''; 
+
+        case 'clear':
+            if (outputDiv) outputDiv.textContent = '';
             break;
-            
-        case 'tudo': 
-        case 'all': 
-            showAll(); 
+
+        case 'tudo':
+        case 'all':
+            showAll();
             break;
-            
-        case 'sobre': 
-        case 'about': 
-            showAbout(); 
+
+        case 'about':
+            showAbout();
             break;
-            
-        case 'skills': 
-        case 'habilidades': 
-            showSkills(); 
+
+        case 'skills':
+            showSkills();
             break;
-            
-        case 'educacao': 
-        case 'education': 
-            showEducation(); 
+
+        case 'educacao':
+        case 'education':
+            showEducation();
             break;
-            
-        case 'projetos': 
+
         case 'projects':
-            showProjects(); 
+            showProjects();
             break;
-            
-        case 'contato': 
-        case 'contact': 
-            showContact(); 
+
+        case 'contact':
+            showContact();
             break;
-            
-        case 'github': 
-            window.open(resume.social.github, '_blank'); 
+
+        case 'github':
+            window.open(resume.social.github, '_blank');
             break;
 
         case 'engineering':
         case 'cad':
         case 'excel':
-            addOutputLine("Comando em construção. Use: skills, projects, cv ou contact.");
+            printLine('Comando em construção. Use: skills, projects, cv ou contact.');
+            break;
+
+        case 'open':
+            if (!args.length) {
+                printLine('Uso: open <destino>', { className: 'error' });
+                break;
+            }
+            window.open(args.join(' '), '_blank');
             break;
 
         case 'cv':
-            addOutputLine("Baixando: João Sinatro - CV.pdf...");
-            window.open("./joao_sinatro_cv.pdf", '_blank');
+            printLine('Baixando: João Sinatro - CV.pdf...');
+            window.open('./joao_sinatro_cv.pdf', '_blank');
             break;
-            
+
         case '':
             break;
-            
+
         default:
-            addOutputLine(`<span class='error'>Comando '${cmd}' não encontrado. Digite 'help'.</span>`);
+            printLine(`Comando '${cmd}' inválido. Digite 'help' ou clique nos atalhos.`, { className: 'error' });
     }
+
+    focusInput();
 }
 
 window.executeCommand = executeCommand;
 
-// Event Listeners
-inputField.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const cmd = inputField.value;
-        inputField.value = '';
-        executeCommand(cmd);
-    }
-    
-    if (e.ctrlKey && e.key === 'c') {
-        return;
-    }
-});
+if (inputField) {
+    inputField.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const cmd = inputField.value;
+            inputField.value = '';
+            pushHistory(cmd.trim());
+            executeCommand(cmd);
+            return;
+        }
+
+        if (e.key === 'ArrowUp') {
+            if (!commandHistory.length) return;
+            e.preventDefault();
+            historyIndex = Math.max(0, historyIndex - 1);
+            inputField.value = commandHistory[historyIndex] || '';
+            return;
+        }
+
+        if (e.key === 'ArrowDown') {
+            if (!commandHistory.length) return;
+            e.preventDefault();
+            historyIndex = Math.min(commandHistory.length, historyIndex + 1);
+            inputField.value = commandHistory[historyIndex] || '';
+            return;
+        }
+
+        if (e.ctrlKey && e.key === 'c') {
+            return;
+        }
+    });
+}
 
 document.querySelectorAll('.chip').forEach((chip) => {
     chip.addEventListener('click', () => {
         const cmd = chip.dataset.command;
         executeCommand(cmd);
-        inputField.focus();
+        focusInput();
     });
 });
 
-terminalBody.addEventListener('click', (e) => {
-    const isInteractive = e.target.closest('a, button, input');
-    if (!isInteractive) {
-        inputField.focus();
-    }
-});
+if (terminalBody) {
+    terminalBody.addEventListener('click', (e) => {
+        const isInteractive = e.target.closest('a, button, input');
+        if (!isInteractive) {
+            focusInput();
+        }
+    });
+}
