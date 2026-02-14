@@ -96,7 +96,7 @@ window.onload = async () => {
     
     outputDiv.innerHTML = '';
     addOutputLine("João Sinatro v2.1.4 - Conectado como visitante", false);
-    addOutputLine("Digite <span class='cmd'>help</span> ou <span class='cmd'>ls</span> para ver a lista de comandos.", false);
+    addOutputLine("Dica: clique nos atalhos ou digite <span class='cmd'>help</span>.", false);
     addOutputLine("", false);
     
     inputField.disabled = false;
@@ -228,7 +228,7 @@ function showAll() {
     showContact();
 }
 
-function processCommand(command) {
+function executeCommand(command) {
     const rawCmd = command.trim();
     if (!rawCmd && !waitingForProjectSelection) return;
     
@@ -297,6 +297,7 @@ function processCommand(command) {
             break;
             
         case 'projetos': 
+        case 'projects':
             showProjects(); 
             break;
             
@@ -307,6 +308,12 @@ function processCommand(command) {
             
         case 'github': 
             window.open(resume.social.github, '_blank'); 
+            break;
+
+        case 'engineering':
+        case 'cad':
+        case 'excel':
+            addOutputLine("Comando em construção. Use: skills, projects, cv ou contact.");
             break;
 
         case 'cv':
@@ -322,12 +329,14 @@ function processCommand(command) {
     }
 }
 
+window.executeCommand = executeCommand;
+
 // Event Listeners
 inputField.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         const cmd = inputField.value;
         inputField.value = '';
-        processCommand(cmd);
+        executeCommand(cmd);
     }
     
     if (e.ctrlKey && e.key === 'c') {
@@ -335,10 +344,17 @@ inputField.addEventListener('keydown', (e) => {
     }
 });
 
-document.querySelector('.input-line').addEventListener('click', () => {
-    inputField.focus();
+document.querySelectorAll('.chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+        const cmd = chip.dataset.command;
+        executeCommand(cmd);
+        inputField.focus();
+    });
 });
 
-document.getElementById('output').addEventListener('click', (e) => {
-    e.stopPropagation();
+terminalBody.addEventListener('click', (e) => {
+    const isInteractive = e.target.closest('a, button, input');
+    if (!isInteractive) {
+        inputField.focus();
+    }
 });
