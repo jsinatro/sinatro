@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jsinatro.github.io/sinatro/sitemap.xml
