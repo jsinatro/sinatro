@@ -1,54 +1,58 @@
 const resume = {
     about: "Desenvolvedor Web e Engenheiro de Soluções. Especializado em criar aplicações web performáticas (HTML, CSS, JavaScript) e automações inteligentes com Python. Transformo dados dispersos em insights acionáveis através de cruzamento e integração de dados. Minha abordagem combina lógica sistêmica e resolução avançada de problemas (troubleshooting) para entregar código limpo, escalável e soluções robustas. Sou um entusiasta do código aberto, contribuindo ativamente para a comunidade, e mantenho-me em constante evolução através do aprendizado autodidata e proativo.",
-    skills: [
-        "<span class='header'>💻 DESENVOLVIMENTO WEB & FRONT-END</span>",
-        "<strong>Tecnologias Core:</strong> HTML5, CSS3 (Responsividade, Flexbox/Grid), JavaScript (ES6+), DOM.",
-        "<strong>CMS & Construtores de Sites:</strong> <span class='highlight'>WordPress</span>, Elementor, Divi.",
-        "<strong>Filosofia & Controle:</strong> Git, GitHub, VS Code, <span class='cmd'>Linux (Ambiente Open Source)</span>.",
-
-        "<span class='header'>⚙️ BACK-END, SCRIPTING & AUTOMAÇÃO</span>",
-        "<strong>Linguagens:</strong> <span class='highlight'>Python</span> (Automação, Scripting, Tratamento de Dados), VBA (Macros Excel).",
-
-        "<span class='header'>🎨 DESIGN GRÁFICO & MULTIMÍDIA</span>",
-        "Edição e vetorização no ecossistema aberto: <span class='cmd'>GIMP</span> e <span class='cmd'>Inkscape</span> são minha escolha principal.",
-        "Para projetos específicos, também navego com fluência em Adobe Photoshop e CorelDRAW.",
-
-        "<span class='header'>📐 ENGENHARIA, MODELAGEM 3D & CAD</span>",
-        "Modelo e projeto com ferramentas livres: <span class='cmd'>Blender</span> para 3D e <span class='cmd'>LibreCAD</span> para projetos 2D.",
-        "Tenho experiência complementar no ambiente corporativo com AutoCAD, Revit e SketchUp.",
-
-        "<span class='header'>🛠️ PRODUTIVIDADE & FERRAMENTAS DE ESCRITÓRIO</span>",
-        "Minha suite de produtividade padrão é o <span class='cmd'>LibreOffice</span>.",
-        "Opero com igual competência no Pacote Microsoft Office para integração em fluxos empresariais."
-    ],
+    skills: {
+        engineering: [
+            "Projetos civis: detalhamento, quantitativos, compatibilização e documentação técnica.",
+            "Projetos elétricos: dimensionamento, diagramas e detalhamento de pranchas."
+        ],
+        cadBim: [
+            "AutoCAD: plantas, detalhes construtivos e padronização de desenhos 2D.",
+            "Revit: modelagem BIM, compatibilização e organização para entrega."
+        ],
+        excel: [
+            "Planilhas avançadas para orçamento, quantitativos e acompanhamento.",
+            "Dashboards e automações para apoiar análise e tomada de decisão."
+        ],
+        programming: [
+            "HTML, CSS e JavaScript para interfaces web objetivas e responsivas.",
+            "Python para automação de tarefas, tratamento de dados e scripts utilitários."
+        ]
+    },
     education: [
         "Minha trajetória combina <strong>Engenharia Civil (FMU-SP, 2014-2020)</strong> e <strong>Administração de Empresas (FMU-SP, 2009-2012)</strong>.",
         "",
         "Esta dupla formação me proporciona uma visão única: a precisão técnica e metodológica do engenheiro aliada à perspectiva estratégica e de negócios do administrador.",
         "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
     ],
-    projects: [
-        {
-            name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense (Projeto pessoal de genealogia)</a>",
-            url: "http://www.endogamiabarbalhense.com.br",
-            desc: "Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica."
-        },
-        {
-            name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado (Site de Fotografia)</a>",
-            url: "http://www.biancamachado.com.br",
-            desc: "Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio."
-        },
-        {
-            name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (Maria Avelina de Sousa)</a>",
-            url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
-            desc: "Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos. Envolvendo tratamento de documentos, escrita, diagramação e publicação."
-        },
-        {
-            name: "<a href='https://jsinatro.github.io/sinatro/#' target='_blank' rel='noopener noreferrer'>Clientes (Sites Desenvolvidos)</a>",
-            url: "LISTA_CLIENTES",
-            desc: "Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS)."
-        }
-    ],
+    projects: {
+        engineering: [
+            "Projetos civis com detalhamento executivo, quantitativos e documentação técnica.",
+            "Projetos elétricos com dimensionamento, diagramas e pranchas para execução.",
+            "Compatibilização interdisciplinar para reduzir retrabalho em obra."
+        ],
+        programming: [
+            {
+                name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense</a>",
+                url: "http://www.endogamiabarbalhense.com.br",
+                desc: "Aplicação web para organização e navegação de dados genealógicos."
+            },
+            {
+                name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado</a>",
+                url: "http://www.biancamachado.com.br",
+                desc: "Site de portfólio com foco em performance e experiência visual."
+            },
+            {
+                name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (PDF)</a>",
+                url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
+                desc: "Projeto autoral com pesquisa documental, escrita e diagramação."
+            }
+        ],
+        programmingOnDemand: [
+            "Landing pages e sites institucionais sob demanda.",
+            "Automações em Python para tarefas operacionais.",
+            "Dashboards e relatórios para apoiar decisões de negócio."
+        ]
+    },
     social: {
         github: "https://github.com/jsinatro",
         linkedin: "https://linkedin.com/in/jsinatro",
@@ -59,13 +63,6 @@ const resume = {
         endogamia: "http://www.endogamiabarbalhense.com.br"
     }
 };
-
-const clientProjects = [
-    { name: "Website Institucional", client: "Escritório de Contabilidade Alpha", url: "https://exemplo-alpha.com.br" },
-    { name: "Landing Page de Produto", client: "Consultoria de Marketing Digital (ME)", url: "https://exemplo-consultoria.com" },
-    { name: "Página de Eventos", client: "Casa de Eventos The Venue", url: "https://exemplo-venue.com" },
-    { name: "Blog Pessoal", client: "Advogado Dr. Pedro Alvares", url: "https://exemplo-advogado.com.br" },
-];
 
 const inputField = document.getElementById('command-input');
 const outputDiv = document.getElementById('output');
@@ -83,7 +80,13 @@ const commandAliases = {
     habilidades: 'skills',
     projetos: 'projects',
     contato: 'contact',
-    curriculo: 'cv'
+    curriculo: 'curriculo',
+    resume: 'curriculo',
+    engenharia: 'engineering',
+    autocad: 'cad',
+    bim: 'revit',
+    planilhas: 'excel',
+    servicos: 'services'
 };
 
 function printLine(text, { className = '', isInput = false } = {}) {
@@ -208,20 +211,24 @@ async function typeText(text, speed) {
 
 function showHelp() {
     const commands = [
-        { cmd: 'help ou ls', desc: 'Exibe esta lista de comandos' },
-        { cmd: 'sobre', desc: 'Resumo profissional' },
-        { cmd: 'skills', desc: 'Habilidades técnicas' },
-        { cmd: 'educacao', desc: 'Formação acadêmica' },
-        { cmd: 'projetos', desc: 'Lista de projetos e códigos' },
-        { cmd: 'contato', desc: 'Links e redes sociais' },
-        { cmd: 'cv', desc: 'Baixar currículo em PDF' },
-        { cmd: 'clear', desc: 'Limpa a tela do terminal' },
+        { cmd: 'help', desc: 'Lista de comandos disponíveis' },
+        { cmd: 'about', desc: 'Resumo profissional' },
+        { cmd: 'skills', desc: 'Habilidades por área' },
+        { cmd: 'projects', desc: 'Projetos de engenharia e programação' },
+        { cmd: 'engineering / engenharia', desc: 'Serviços de engenharia (civil/elétrica)' },
+        { cmd: 'cad / autocad', desc: 'Serviços CAD 2D' },
+        { cmd: 'revit / bim', desc: 'Serviços Revit/BIM' },
+        { cmd: 'excel / planilhas', desc: 'Planilhas, dashboards e automações' },
+        { cmd: 'cv', desc: 'Abrir currículo em PDF' },
+        { cmd: 'curriculo / resume', desc: 'Abrir versão web do currículo' },
+        { cmd: 'contact', desc: 'Canais de contato' }
     ];
 
-    printTrustedHTML("<span class='header'>--- COMANDOS DISPONÍVEIS ---</span>");
+    printTrustedHTML("<span class='header'>== COMANDOS ==</span>");
     commands.forEach(c => {
-        printTrustedHTML(`<span class='cmd'>${c.cmd.padEnd(20)}</span> <span class='desc'>- ${c.desc}</span>`);
+        printTrustedHTML(`<span class='cmd'>${c.cmd.padEnd(24)}</span> <span class='desc'>- ${c.desc}</span>`);
     });
+    printLine('Dica: use os atalhos acima do campo de comando.');
 }
 
 function showAbout() {
@@ -230,8 +237,22 @@ function showAbout() {
 }
 
 function showSkills() {
-    printTrustedHTML("<span class='header'>--- SKILLS ---</span>");
-    resume.skills.forEach(skill => printTrustedHTML(`- ${skill}`));
+    printTrustedHTML("<span class='header'>== SKILLS ==</span>");
+
+    printTrustedHTML("<span class='header'>== Engenharia (Civil/Elétrica) ==</span>");
+    resume.skills.engineering.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('');
+
+    printTrustedHTML("<span class='header'>== CAD / BIM ==</span>");
+    resume.skills.cadBim.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('');
+
+    printTrustedHTML("<span class='header'>== Excel ==</span>");
+    resume.skills.excel.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('');
+
+    printTrustedHTML("<span class='header'>== Programação ==</span>");
+    resume.skills.programming.forEach(item => printTrustedHTML(`- ${item}`));
 }
 
 function showEducation() {
@@ -240,53 +261,106 @@ function showEducation() {
 }
 
 function showProjects() {
-    printTrustedHTML("<span class='header'>--- PROJETOS ---</span>");
-    resume.projects.forEach((proj, index) => {
-        const isLink = proj.name.includes('<a ');
+    printTrustedHTML("<span class='header'>== PROJETOS ==</span>");
 
-        if (isLink) {
-            printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
-        } else {
-            printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] <span class='highlight'>${proj.name}</span>`);
-        }
+    printTrustedHTML("<span class='header'>== Projetos de Engenharia ==</span>");
+    resume.projects.engineering.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('');
+
+    printTrustedHTML("<span class='header'>== Projetos de Programação ==</span>");
+    resume.projects.programming.forEach((proj, index) => {
+        printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
         printTrustedHTML(`    <span class='desc'>- ${proj.desc}</span>`);
-        printLine('');
     });
+    printLine('');
+    printTrustedHTML("<span class='header'>== Cases sob demanda ==</span>");
+    resume.projects.programmingOnDemand.forEach(item => printTrustedHTML(`- ${item}`));
     printLine("Digite o número do projeto para abrir ou 'sair' para cancelar.");
+    printLine("Para projetos personalizados, digite 'contact'.");
     waitingForProjectSelection = true;
 }
 
-function showClientList() {
-    printTrustedHTML("<span class='header'>--- SITES DE CLIENTES ---</span>");
-    printLine(`Total de ${clientProjects.length} sites em destaque no portfólio de clientes:`);
+function showEngineering() {
+    printTrustedHTML("<span class='header'>== ENGENHARIA ==</span>");
+    printLine('Serviços em engenharia civil e elétrica com foco em documentação clara e execução segura.');
     printLine('');
+    printTrustedHTML("<span class='header'>== Entregas ==</span>");
+    printLine('- Projetos civis com detalhamento e quantitativos.');
+    printLine('- Projetos elétricos com dimensionamento e diagramas.');
+    printLine('- Pranchas e documentação técnica para obra/execução.');
+    printLine('');
+    printTrustedHTML("<span class='header'>== Ferramentas ==</span>");
+    printLine('- CAD: AutoCAD para desenhos 2D e padronização.');
+    printLine('- BIM: Revit para modelagem e compatibilização.');
+    printLine('- Excel: planilhas, indicadores e acompanhamento técnico.');
+    printLine('Digite `contact` para falar comigo.');
+}
 
-    clientProjects.forEach(item => {
-        printTrustedHTML(`  > <span class='highlight'>${item.name}</span>`);
-        printLine(`    Criado para: ${item.client}`);
-        printTrustedHTML(`    Link: <a href="${item.url}" target="_blank">${item.url}</a>`);
-        printLine('');
-    });
+function showCad() {
+    printTrustedHTML("<span class='header'>== CAD ==</span>");
+    printLine('- Desenvolvimento de plantas técnicas e detalhes construtivos.');
+    printLine('- Montagem de pranchas com padronização de layers e escalas.');
+    printLine('- Compatibilização 2D entre disciplinas para reduzir conflitos.');
+    printLine('- Revisões e ajustes para emissão final de documentação.');
+}
 
-    printLine('A lista acima não é interativa, apenas de consulta. Use os comandos principais para continuar.');
+function showRevit() {
+    printTrustedHTML("<span class='header'>== REVIT / BIM ==</span>");
+    printLine('- Modelagem BIM para representação técnica do projeto.');
+    printLine('- Compatibilização entre arquitetura, estrutura e instalações.');
+    printLine('- Extração de vistas e pranchas organizadas para entrega.');
+    printLine('- Organização de famílias e padrões para consistência do modelo.');
+}
+
+function showExcel() {
+    printTrustedHTML("<span class='header'>== EXCEL ==</span>");
+    printLine('- Planilhas para orçamento e controle de custos.');
+    printLine('- Quantitativos, cronogramas e acompanhamento de etapas.');
+    printLine('- Dashboards para leitura rápida de indicadores.');
+    printLine('- Automações para reduzir retrabalho operacional.');
+}
+
+function showServices() {
+    printTrustedHTML("<span class='header'>== SERVICES ==</span>");
+    printLine('- Engenharia civil e elétrica com foco em entregáveis objetivos.');
+    printLine('- CAD/Revit para documentação, compatibilização e emissão de pranchas.');
+    printLine('- Excel para controle técnico, quantitativos e dashboards.');
+    printLine('- Desenvolvimento web com HTML, CSS e JavaScript.');
+    printLine('- Python para automações e tratamento de dados.');
+    printLine('- Projetos sob demanda: digite `contact` para alinharmos escopo e prazo.');
 }
 
 function showContact() {
     printTrustedHTML("<span class='header'>--- CONTATO (contact) ---</span>");
 
     printLine('Redes Profissionais:');
-    printTrustedHTML(`  > GitHub: <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
-    printTrustedHTML(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
+    printTrustedHTML(`  > GitHub: <a href="${resume.social.github}" target="_blank" rel="noopener noreferrer">${resume.social.github}</a>`);
+    printTrustedHTML(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank" rel="noopener noreferrer">${resume.social.linkedin}</a>`);
 
     printTrustedHTML('<br>Contato Direto:');
     printTrustedHTML(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
-    printTrustedHTML(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">+5511996495465</a>`);
+    printTrustedHTML(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank" rel="noopener noreferrer">+5511996495465</a>`);
 
     printTrustedHTML('<br>Projetos de Interesse:');
-    printTrustedHTML(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
-    printTrustedHTML(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
+    printTrustedHTML(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank" rel="noopener noreferrer">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
+    printTrustedHTML(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank" rel="noopener noreferrer">${resume.social.endogamia}</a>`);
 
     printTrustedHTML('<br>Entre em contato para um café virtual!');
+}
+
+
+async function openPathWithFallback(path, successMessage, fallbackMessage) {
+    try {
+        const response = await fetch(path, { method: 'HEAD' });
+        if (!response.ok) {
+            printLine(fallbackMessage, { className: 'error' });
+            return;
+        }
+        printLine(successMessage);
+        window.open(path, '_blank', 'noopener');
+    } catch (error) {
+        printLine(fallbackMessage, { className: 'error' });
+    }
 }
 
 function showAll() {
@@ -299,7 +373,7 @@ function showAll() {
     showContact();
 }
 
-function executeCommand(command) {
+async function executeCommand(command) {
     const cmdRaw = typeof command === 'string' ? command : '';
     const cmd = cmdRaw.trim();
     const cmdLower = cmd.toLowerCase();
@@ -322,15 +396,10 @@ function executeCommand(command) {
         }
 
         const index = parseInt(cmdLower, 10) - 1;
-        if (index >= 0 && index < resume.projects.length) {
-            const proj = resume.projects[index];
-
-            if (proj.url === 'LISTA_CLIENTES') {
-                showClientList();
-            } else {
-                printLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
-                window.open(proj.url, '_blank');
-            }
+        if (index >= 0 && index < resume.projects.programming.length) {
+            const proj = resume.projects.programming[index];
+            printLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
+            window.open(proj.url, '_blank');
             waitingForProjectSelection = false;
         } else {
             printLine("Número inválido. Tente novamente ou digite 'sair'.", { className: 'error' });
@@ -389,9 +458,23 @@ function executeCommand(command) {
             break;
 
         case 'engineering':
+            showEngineering();
+            break;
+
         case 'cad':
+            showCad();
+            break;
+
+        case 'revit':
+            showRevit();
+            break;
+
         case 'excel':
-            printLine('Comando em construção. Use: skills, projects, cv ou contact.');
+            showExcel();
+            break;
+
+        case 'services':
+            showServices();
             break;
 
         case 'open':
@@ -403,8 +486,19 @@ function executeCommand(command) {
             break;
 
         case 'cv':
-            printLine('Baixando: João Sinatro - CV.pdf...');
-            window.open('./joao_sinatro_cv.pdf', '_blank');
+            await openPathWithFallback(
+                'joao_sinatro_cv.pdf',
+                'Abrindo currículo em PDF...',
+                "Não encontrei o PDF do currículo agora. Use 'curriculo' para abrir a versão web."
+            );
+            break;
+
+        case 'curriculo':
+            await openPathWithFallback(
+                'curriculo.html',
+                'Abrindo currículo web...',
+                'Não encontrei curriculo.html no momento. Tente novamente em instantes.'
+            );
             break;
 
         case '':

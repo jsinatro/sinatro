@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currículo — João Sinatro</title>
     <meta name="description" content="Currículo de João Sinatro, engenheiro civil e programador com experiência em CAD/Revit, Excel, Python e projetos técnicos.">
@@ -20,8 +20,95 @@
     <meta name="twitter:image" content="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201200%20630%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%230f172a%27%2F%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%231e293b%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%271200%27%20height%3D%27630%27%20fill%3D%27url%28%23g%29%27%2F%3E%3Ctext%20x%3D%2780%27%20y%3D%27280%27%20fill%3D%27%23e2e8f0%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2784%27%20font-weight%3D%27700%27%3EJo%C3%A3o%20Sinatro%3C%2Ftext%3E%3Ctext%20x%3D%2780%27%20y%3D%27370%27%20fill%3D%27%2393c5fd%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2744%27%3EEngenharia%20Civil%20%E2%80%A2%20Programa%C3%A7%C3%A3o%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2712%27%20fill%3D%27%23111827%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2741%27%20text-anchor%3D%27middle%27%20fill%3D%27%2393c5fd%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2728%27%20font-weight%3D%27700%27%3EJS%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --cv-max-width: 210mm;
+            --cv-screen-bg: #f5f7fb;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cv-screen-bg);
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .curriculo {
+            width: 100%;
+            max-width: var(--cv-max-width);
+            background: #fff;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+        }
+
+        .print-btn {
+            position: sticky;
+            top: 8px;
+            z-index: 10;
+            margin: 8px 0 0 16px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #0f172a;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .print-btn:hover {
+            background: #f8fafc;
+        }
+
+        .contato-item a,
+        .contato-card a,
+        .projeto-link,
+        .links-rapidos a {
+            text-decoration: none;
+        }
+
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
+
+        @media print {
+            html, body {
+                background: #fff !important;
+            }
+
+            .print-btn {
+                display: none !important;
+            }
+
+            main {
+                padding: 0 !important;
+            }
+
+            .curriculo {
+                max-width: none !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                background: #fff !important;
+            }
+
+            .secao,
+            .projeto-card,
+            .contato-card,
+            .formacao-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+
 </head>
 <body>
+    <button type="button" class="print-btn" onclick="window.print()" aria-label="Imprimir ou salvar currículo em PDF">Imprimir / Salvar em PDF</button>
+    <main>
     <div class="curriculo">
         <!-- Cabeçalho -->
         <header class="cabecalho">
@@ -31,19 +118,19 @@
                 <div class="contato">
                     <div class="contato-item">
                         <i class="fas fa-envelope"></i>
-                        <span>joaosinatro@endogamiabarbalhense.com.br</span>
+                        <a href="mailto:joaosinatro@endogamiabarbalhense.com.br">joaosinatro@endogamiabarbalhense.com.br</a>
                     </div>
                     <div class="contato-item">
                         <i class="fas fa-phone"></i>
-                        <span>(11) 99649-5465</span>
+                        <a href="tel:+5511996495465">(11) 99649-5465</a>
                     </div>
                     <div class="contato-item">
                         <i class="fab fa-github"></i>
-                        <span>github.com/jsinatro</span>
+                        <a href="https://github.com/jsinatro" target="_blank" rel="noopener noreferrer">github.com/jsinatro</a>
                     </div>
                     <div class="contato-item">
                         <i class="fab fa-linkedin"></i>
-                        <span>linkedin.com/in/jsinatro</span>
+                        <a href="https://linkedin.com/in/jsinatro" target="_blank" rel="noopener noreferrer">linkedin.com/in/jsinatro</a>
                     </div>
                 </div>
             </div>
@@ -131,7 +218,7 @@
                 <div class="projeto-card">
                     <h3 class="projeto-nome">Endogamia Barbalhense</h3>
                     <p class="projeto-desc">Projeto Full-Code (HTML/CSS/JS) para mapeamento de dados genealógicos complexos, aplicando lógica sistêmica.</p>
-                    <a href="http://www.endogamiabarbalhense.com.br" class="projeto-link" target="_blank">
+                    <a href="http://www.endogamiabarbalhense.com.br" class="projeto-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> Acessar projeto
                     </a>
                 </div>
@@ -139,7 +226,7 @@
                 <div class="projeto-card">
                     <h3 class="projeto-nome">Studio Bianca Machado</h3>
                     <p class="projeto-desc">Criação do portal, focado em otimização de imagens, performance e apresentação visual de portfólio.</p>
-                    <a href="http://www.biancamachado.com.br" class="projeto-link" target="_blank">
+                    <a href="http://www.biancamachado.com.br" class="projeto-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> Acessar projeto
                     </a>
                 </div>
@@ -147,7 +234,7 @@
                 <div class="projeto-card">
                     <h3 class="projeto-nome">Livro Genealógico (Maria Avelina de Sousa)</h3>
                     <p class="projeto-desc">Projeto autoral de genealogia para presentear a minha avó no seu aniversário de 90 anos.</p>
-                    <a href="https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view" class="projeto-link" target="_blank">
+                    <a href="https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view" class="projeto-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> Visualizar livro
                     </a>
                 </div>
@@ -155,7 +242,7 @@
                 <div class="projeto-card">
                     <h3 class="projeto-nome">Clientes (Sites Desenvolvidos)</h3>
                     <p class="projeto-desc">Lista de projetos desenvolvidos sob demanda para clientes e empresas (HTML/CSS/JS).</p>
-                    <a href="https://jsinatro.github.io/sinatro/#" class="projeto-link" target="_blank">
+                    <a href="https://jsinatro.github.io/sinatro/#" class="projeto-link" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> Ver portfólio completo
                     </a>
                 </div>
@@ -175,19 +262,19 @@
                 <div class="contato-card">
                     <i class="fas fa-phone"></i>
                     <h3>Telefone / WhatsApp</h3>
-                    <a href="https://wa.me/5511996495465">(11) 99649-5465</a>
+                    <a href="tel:+5511996495465">(11) 99649-5465</a>
                 </div>
                 
                 <div class="contato-card">
                     <i class="fab fa-github"></i>
                     <h3>GitHub</h3>
-                    <a href="https://github.com/jsinatro" target="_blank">github.com/jsinatro</a>
+                    <a href="https://github.com/jsinatro" target="_blank" rel="noopener noreferrer">github.com/jsinatro</a>
                 </div>
                 
                 <div class="contato-card">
                     <i class="fab fa-linkedin"></i>
                     <h3>LinkedIn</h3>
-                    <a href="https://linkedin.com/in/jsinatro" target="_blank">linkedin.com/in/jsinatro</a>
+                    <a href="https://linkedin.com/in/jsinatro" target="_blank" rel="noopener noreferrer">linkedin.com/in/jsinatro</a>
                 </div>
             </div>
         </section>
@@ -196,15 +283,16 @@
         <footer class="rodape">
             <p>Portfólio interativo disponível em: <strong>https://jsinatro.github.io/sinatro/</strong></p>
             <div class="links-rapidos">
-                <a href="https://jsinatro.github.io/sinatro/#" target="_blank">Portfólio Web</a>
-                <a href="http://www.endogamiabarbalhense.com.br" target="_blank">Projeto Genealógico</a>
-                <a href="https://www.familysearch.org/pt/" target="_blank">FamilySearch</a>
+                <a href="https://jsinatro.github.io/sinatro/#" target="_blank" rel="noopener noreferrer">Portfólio Web</a>
+                <a href="http://www.endogamiabarbalhense.com.br" target="_blank" rel="noopener noreferrer">Projeto Genealógico</a>
+                <a href="https://www.familysearch.org/pt/" target="_blank" rel="noopener noreferrer">FamilySearch</a>
             </div>
             <p style="margin-top: 15px; font-size: 12px;">
                 Atualizado em: <span id="data-atual"></span> | Desenvolvido com HTML, CSS e JavaScript
             </p>
         </footer>
     </div>
+    </main>
 
     <script>
         // Adiciona a data atual
