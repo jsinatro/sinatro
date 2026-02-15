@@ -1,0 +1,22 @@
+[
+  {
+    "id": "eng-001",
+    "tipo": "engenharia",
+    "titulo": "EXEMPLO — Projeto elétrico residencial (padrão de entrada)",
+    "descricao": "EXEMPLO — Descrição curta do escopo e entregáveis.",
+    "ferramentas": ["AutoCAD", "Excel"],
+    "entregaveis": ["Plantas", "Diagramas", "Memorial descritivo"],
+    "link": "",
+    "status": "exemplo"
+  },
+  {
+    "id": "dev-001",
+    "tipo": "programacao",
+    "titulo": "EXEMPLO — Site portfólio estilo terminal",
+    "descricao": "EXEMPLO — Página estática com HTML/CSS/JS e comandos interativos.",
+    "ferramentas": ["HTML", "CSS", "JavaScript"],
+    "entregaveis": ["Landing page", "SEO/OG", "UI terminal"],
+    "link": "",
+    "status": "exemplo"
+  }
+]

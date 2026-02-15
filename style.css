@@ -7,17 +7,26 @@
 
 body {
     background: linear-gradient(135deg, #1e1e2e 0%, #2a2a40 100%);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     font-family: 'Fira Code', monospace;
-    overflow: hidden;
+    overflow-y: auto;
+    padding: 24px 16px;
+}
+
+.page-shell {
+    width: min(860px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
 }
 
 /* A Janela do Terminal */
 .terminal-window {
-    width: 800px;
+    width: 100%;
     height: 500px;
     background-color: #16161e;
     border-radius: 10px;
@@ -85,6 +94,53 @@ body {
     margin-bottom: 12px;
 }
 
+
+.contact-block {
+    background-color: #16161e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    color: #c0caf5;
+}
+
+.contact-block__title {
+    color: #e0af68;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.contact-block__text {
+    color: #a9b1d6;
+    margin-bottom: 12px;
+}
+
+.contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.contact-btn {
+    background: rgba(65, 72, 104, 0.25);
+    border: 1px solid #414868;
+    border-radius: 999px;
+    color: #a9b1d6;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    padding: 6px 11px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-btn:hover,
+.contact-btn:focus-visible {
+    background: rgba(122, 162, 247, 0.18);
+    border-color: #7aa2f7;
+    color: #c0caf5;
+}
+
 .quick-actions__title {
     font-size: 12px;
     color: #7aa2f7;
@@ -117,6 +173,14 @@ body {
     border-color: #7aa2f7;
     color: #c0caf5;
     outline: none;
+}
+
+#command-input:focus-visible,
+.chip:focus-visible,
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 2px;
 }
 
 /* Texto e Input */
@@ -153,7 +217,6 @@ pre {
 /* Para Tablets e Telas menores que 850px */
 @media (max-width: 850px) {
     .terminal-window {
-        width: 90%;
         height: 80vh;
     }
 }
@@ -162,8 +225,13 @@ pre {
 @media (max-width: 600px) {
     body {
         align-items: flex-start;
-        padding-top: 20px;
+        padding: 0;
         background: #16161e;
+    }
+
+    .page-shell {
+        width: 100%;
+        gap: 0;
     }
 
     .terminal-window {
@@ -195,6 +263,13 @@ pre {
     #command-input {
         font-size: 16px;
     }
+
+    .contact-block {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
 }
 
 /* Estilos de Texto do Currículo - Cores do Terminal */
@@ -206,6 +281,11 @@ pre {
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 5px;
+}
+
+.pitch-headline {
+    color: #c0caf5;
+    font-weight: 700;
 }
 
 /* Comandos na lista de help - Ciano */
@@ -281,4 +361,15 @@ pre {
 .desc {
     color: #a9b1d6;
     font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
