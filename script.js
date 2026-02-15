@@ -2,20 +2,20 @@ const resume = {
     about: "Desenvolvedor Web e Engenheiro de Soluções. Especializado em criar aplicações web performáticas (HTML, CSS, JavaScript) e automações inteligentes com Python. Transformo dados dispersos em insights acionáveis através de cruzamento e integração de dados. Minha abordagem combina lógica sistêmica e resolução avançada de problemas (troubleshooting) para entregar código limpo, escalável e soluções robustas. Sou um entusiasta do código aberto, contribuindo ativamente para a comunidade, e mantenho-me em constante evolução através do aprendizado autodidata e proativo.",
     skills: {
         engineering: [
-            "Projetos civis: detalhamento, quantitativos, compatibilização e documentação técnica.",
-            "Projetos elétricos: dimensionamento, diagramas e detalhamento de pranchas."
+            "Projetos civis: detalhamento executivo, quantitativos, compatibilização e documentação técnica.",
+            "Projetos elétricos: dimensionamento, diagramas, memorial e detalhamento de pranchas."
         ],
         cadBim: [
-            "AutoCAD: plantas, detalhes construtivos e padronização de desenhos 2D.",
-            "Revit: modelagem BIM, compatibilização e organização para entrega."
+            "AutoCAD: plantas, detalhes construtivos, revisão e padronização de desenhos 2D.",
+            "Revit/BIM: modelagem, compatibilização interdisciplinar e organização para entrega."
         ],
         excel: [
-            "Planilhas avançadas para orçamento, quantitativos e acompanhamento.",
-            "Dashboards e automações para apoiar análise e tomada de decisão."
+            "Planilhas avançadas para orçamento, quantitativos e acompanhamento técnico.",
+            "Dashboards e automações para reduzir retrabalho e melhorar leitura de indicadores."
         ],
         programming: [
             "HTML, CSS e JavaScript para interfaces web objetivas e responsivas.",
-            "Python para automação de tarefas, tratamento de dados e scripts utilitários."
+            "Python para automações, tratamento de dados e scripts utilitários."
         ]
     },
     education: [
@@ -25,38 +25,14 @@ const resume = {
         "Aplico esse conjunto no desenvolvimento de soluções que são tanto tecnicamente sólidas quanto alinhadas com objetivos organizacionais."
     ],
     projects: {
-        engineering: [
-            "Projetos civis com detalhamento executivo, quantitativos e documentação técnica.",
-            "Projetos elétricos com dimensionamento, diagramas e pranchas para execução.",
-            "Compatibilização interdisciplinar para reduzir retrabalho em obra."
-        ],
-        programming: [
-            {
-                name: "<a href='http://www.endogamiabarbalhense.com.br' target='_blank' rel='noopener noreferrer'>Endogamia Barbalhense</a>",
-                url: "http://www.endogamiabarbalhense.com.br",
-                desc: "Aplicação web para organização e navegação de dados genealógicos."
-            },
-            {
-                name: "<a href='http://www.biancamachado.com.br' target='_blank' rel='noopener noreferrer'>Studio Bianca Machado</a>",
-                url: "http://www.biancamachado.com.br",
-                desc: "Site de portfólio com foco em performance e experiência visual."
-            },
-            {
-                name: "<a href='https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view' target='_blank' rel='noopener noreferrer'>Livro Genealógico (PDF)</a>",
-                url: "https://drive.google.com/file/d/1lERTx1tG9JVMaA-3JOBBPxTURfqQ34mg/view",
-                desc: "Projeto autoral com pesquisa documental, escrita e diagramação."
-            }
-        ],
-        programmingOnDemand: [
-            "Landing pages e sites institucionais sob demanda.",
-            "Automações em Python para tarefas operacionais.",
-            "Dashboards e relatórios para apoiar decisões de negócio."
-        ]
+        engineering: [],
+        programming: [],
+        programmingOnDemand: []
     },
     social: {
         github: "https://github.com/jsinatro",
         linkedin: "https://linkedin.com/in/jsinatro",
-        email: "joaosinatro@endogamiabarbalhense.com.br",
+        email: "sinatro@msn.com",
         whatsapp: "5511996495465",
         familysearch_user: "@sinatro",
         familysearch: "https://www.familysearch.org/pt/",
@@ -64,15 +40,36 @@ const resume = {
     }
 };
 
+
+const CONTACT = {
+    email: 'sinatro@msn.com',
+    emailHref: 'mailto:sinatro@msn.com?subject=Contato%20-%20Portf%C3%B3lio&body=Ol%C3%A1%20Sinatro!%20',
+    whatsappDigits: '5511996495465',
+    whatsappDisplay: '+55 11 99649-5465',
+    whatsappHref: 'https://wa.me/5511996495465?text=Ol%C3%A1%20Sinatro!%20Vim%20pelo%20seu%20portf%C3%B3lio.',
+    github: 'https://github.com/jsinatro',
+    linkedin: 'https://linkedin.com/in/jsinatro'
+};
+
 const inputField = document.getElementById('command-input');
 const outputDiv = document.getElementById('output');
 const terminalBody = document.getElementById('terminal-body');
 const promptText = "visitante@sinatro: ~$";
 
-let waitingForProjectSelection = false;
+const copyEmailBtn = document.getElementById('copy-email');
+const copyWhatsappBtn = document.getElementById('copy-whatsapp');
+const contactFeedback = document.getElementById('contact-feedback');
+
 const commandHistory = [];
 const MAX_HISTORY = 30;
 let historyIndex = 0;
+
+let projectsCache = null;
+let projectsLoadPromise = null;
+
+const MAX_OUTPUT_LINES = 200;
+const outputQueue = [];
+let flushScheduled = false;
 
 const commandAliases = {
     ajuda: 'help',
@@ -80,12 +77,14 @@ const commandAliases = {
     habilidades: 'skills',
     projetos: 'projects',
     contato: 'contact',
-    curriculo: 'cv',
+    curriculo: 'curriculo',
+    resume: 'curriculo',
     engenharia: 'engineering',
     autocad: 'cad',
     bim: 'revit',
     planilhas: 'excel',
-    servicos: 'services'
+    servicos: 'services',
+    resumo: 'pitch'
 };
 
 function printLine(text, { className = '', isInput = false } = {}) {
@@ -104,8 +103,7 @@ function printLine(text, { className = '', isInput = false } = {}) {
         pre.textContent = text;
     }
 
-    outputDiv.appendChild(pre);
-    scrollToBottom();
+    queueOutputNode(pre);
 }
 
 function printHTMLSafe(containerBuilderFn) {
@@ -113,14 +111,48 @@ function printHTMLSafe(containerBuilderFn) {
 
     const pre = document.createElement('pre');
     containerBuilderFn(pre);
-    outputDiv.appendChild(pre);
-    scrollToBottom();
+    queueOutputNode(pre);
 }
 
 function printTrustedHTML(html) {
     printHTMLSafe((container) => {
         container.innerHTML = html;
     });
+}
+
+function queueOutputNode(node) {
+    if (!outputDiv || !node) return;
+
+    outputQueue.push(node);
+    if (flushScheduled) return;
+
+    flushScheduled = true;
+    requestAnimationFrame(() => {
+        flushOutputQueue();
+    });
+}
+
+function flushOutputQueue() {
+    if (!outputDiv || !outputQueue.length) {
+        flushScheduled = false;
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    outputQueue.splice(0).forEach((node) => fragment.appendChild(node));
+    outputDiv.appendChild(fragment);
+
+    trimOutputLines();
+    scrollToBottom();
+    flushScheduled = false;
+}
+
+function trimOutputLines() {
+    if (!outputDiv) return;
+
+    while (outputDiv.childElementCount > MAX_OUTPUT_LINES) {
+        outputDiv.firstElementChild?.remove();
+    }
 }
 
 function focusInput() {
@@ -144,6 +176,18 @@ function pushHistory(command) {
         commandHistory.shift();
     }
     historyIndex = commandHistory.length;
+}
+
+
+function clearTerminalOutput({ showMessage = false } = {}) {
+    if (outputDiv) {
+        outputDiv.textContent = '';
+    }
+    outputQueue.length = 0;
+
+    if (showMessage) {
+        printLine('(limpo)', { className: 'desc' });
+    }
 }
 
 function copyOutputToClipboard() {
@@ -177,17 +221,15 @@ window.onload = async function() {
     outputDiv.textContent = '';
 
     printLine('João Sinatro v2.1.4 - Conectado como visitante');
-    printHTMLSafe((line) => {
-        line.append('Dica: clique nos atalhos ou digite ');
-        const helpTag = document.createElement('span');
-        helpTag.className = 'cmd';
-        helpTag.textContent = 'help';
-        line.appendChild(helpTag);
-        line.append('.');
-    });
+    printLine('Bem-vindo ao portfólio interativo.');
+    printLine('');
+    showPitch();
+    printLine('');
+    printLine('Atalhos acima do input. Digite `help`.');
     printLine('');
 
     inputField.disabled = false;
+    initContactBlock();
     focusInput();
 };
 
@@ -200,6 +242,7 @@ async function typeText(text, speed) {
 
     const pre = document.createElement('pre');
     outputDiv.appendChild(pre);
+    trimOutputLines();
 
     for (let i = 0; i < text.length; i++) {
         pre.textContent += text.charAt(i);
@@ -208,23 +251,47 @@ async function typeText(text, speed) {
     }
 }
 
+
+function showPitch() {
+    printTrustedHTML("<span class='header pitch-headline'>João Sinatro — Engenheiro Civil e Programador</span>");
+    printLine('- Projetos civis e elétricos • documentação e detalhamento');
+    printLine('- CAD/Revit (BIM) • pranchas, compatibilização e quantitativos');
+    printLine('- Automação com Excel e Python • planilhas, scripts e produtividade');
+    printLine('CV: digite `cv` (PDF) ou `curriculo` (HTML)');
+    printLine('Contato: digite `contact` ou role até a seção Contato');
+}
+
 function showHelp() {
     const commands = [
         { cmd: 'help', desc: 'Lista de comandos disponíveis' },
         { cmd: 'about', desc: 'Resumo profissional' },
+        { cmd: 'pitch / resumo', desc: 'Apresentação rápida com CTAs' },
         { cmd: 'skills', desc: 'Habilidades por área' },
-        { cmd: 'projects', desc: 'Projetos de engenharia e programação' },
+        { cmd: 'projects', desc: 'Lista de projetos (carregada de projects.json)' },
+        { cmd: 'project <id>', desc: 'Detalhes de um projeto específico' },
         { cmd: 'engineering / engenharia', desc: 'Serviços de engenharia (civil/elétrica)' },
         { cmd: 'cad / autocad', desc: 'Serviços CAD 2D' },
         { cmd: 'revit / bim', desc: 'Serviços Revit/BIM' },
         { cmd: 'excel / planilhas', desc: 'Planilhas, dashboards e automações' },
-        { cmd: 'cv', desc: 'Baixar currículo em PDF' },
+        { cmd: 'cv', desc: 'Abrir currículo em PDF' },
+        { cmd: 'curriculo / resume', desc: 'Abrir currículo web (curriculo.html)' },
+        { cmd: 'open <id|url>', desc: 'Abrir link de projeto por id ou URL' },
         { cmd: 'contact', desc: 'Canais de contato' }
     ];
 
     printTrustedHTML("<span class='header'>== COMANDOS ==</span>");
-    commands.forEach(c => {
-        printTrustedHTML(`<span class='cmd'>${c.cmd.padEnd(24)}</span> <span class='desc'>- ${c.desc}</span>`);
+    commands.forEach((commandItem) => {
+        printHTMLSafe((line) => {
+            const command = document.createElement('span');
+            command.className = 'cmd';
+            command.textContent = commandItem.cmd.padEnd(24);
+            const description = document.createElement('span');
+            description.className = 'desc';
+            description.textContent = ` - ${commandItem.desc}`;
+
+            line.appendChild(command);
+            line.appendChild(description);
+        });
     });
     printLine('Dica: use os atalhos acima do campo de comando.');
 }
@@ -242,7 +309,8 @@ function showSkills() {
     printLine('');
 
     printTrustedHTML("<span class='header'>== CAD / BIM ==</span>");
-    resume.skills.cadBim.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('- AutoCAD: plantas, detalhes, pranchas e padronização 2D.');
+    printLine('- Revit: modelagem, compatibilização e organização para entrega.');
     printLine('');
 
     printTrustedHTML("<span class='header'>== Excel ==</span>");
@@ -250,7 +318,8 @@ function showSkills() {
     printLine('');
 
     printTrustedHTML("<span class='header'>== Programação ==</span>");
-    resume.skills.programming.forEach(item => printTrustedHTML(`- ${item}`));
+    printLine('- HTML, CSS e JavaScript para interfaces web objetivas.');
+    printLine('- Python para automações e tratamento de dados.');
 }
 
 function showEducation() {
@@ -258,24 +327,125 @@ function showEducation() {
     resume.education.forEach(edu => printTrustedHTML(`- ${edu}`));
 }
 
-function showProjects() {
+async function loadProjects() {
+    if (Array.isArray(projectsCache)) {
+        return projectsCache;
+    }
+
+    if (projectsLoadPromise) {
+        return projectsLoadPromise;
+    }
+
+    projectsLoadPromise = fetch('./data/projects.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Falha ao carregar projects.json');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (!Array.isArray(data)) {
+                throw new Error('Formato inválido de projects.json');
+            }
+            projectsCache = data;
+            return projectsCache;
+        })
+        .catch(() => {
+            printLine('Não foi possível carregar projects.json localmente. Verifique o caminho e o deploy.', { className: 'error' });
+            projectsCache = [];
+            return projectsCache;
+        })
+        .finally(() => {
+            projectsLoadPromise = null;
+        });
+
+    return projectsLoadPromise;
+}
+
+function formatProjectSummary(project) {
+    const tools = Array.isArray(project.ferramentas) && project.ferramentas.length
+        ? project.ferramentas.join(', ')
+        : 'sem ferramentas definidas';
+    const exampleTag = project.status === 'exemplo' ? ' (exemplo — substitua por projeto real)' : '';
+    return `[${project.id}] ${project.titulo} — ${tools}${exampleTag}`;
+}
+
+async function showProjects() {
+    const projects = await loadProjects();
+    if (!projects.length) return;
+
+    const engineering = projects.filter((project) => project.tipo === 'engenharia');
+    const programming = projects.filter((project) => project.tipo === 'programacao');
+
     printTrustedHTML("<span class='header'>== PROJETOS ==</span>");
+    printTrustedHTML("<span class='header'>== Engenharia ==</span>");
+    if (!engineering.length) {
+        printLine('- Nenhum projeto cadastrado nesta categoria.');
+    } else {
+        engineering.forEach((project) => printLine(formatProjectSummary(project)));
+    }
 
-    printTrustedHTML("<span class='header'>== Projetos de Engenharia ==</span>");
-    resume.projects.engineering.forEach(item => printTrustedHTML(`- ${item}`));
     printLine('');
+    printTrustedHTML("<span class='header'>== Programação ==</span>");
+    if (!programming.length) {
+        printLine('- Nenhum projeto cadastrado nesta categoria.');
+    } else {
+        programming.forEach((project) => printLine(formatProjectSummary(project)));
+    }
 
-    printTrustedHTML("<span class='header'>== Projetos de Programação ==</span>");
-    resume.projects.programming.forEach((proj, index) => {
-        printTrustedHTML(`[<span class='project-number'>${index + 1}</span>] ${proj.name}`);
-        printTrustedHTML(`    <span class='desc'>- ${proj.desc}</span>`);
-    });
     printLine('');
-    printTrustedHTML("<span class='header'>== Cases sob demanda ==</span>");
-    resume.projects.programmingOnDemand.forEach(item => printTrustedHTML(`- ${item}`));
-    printLine("Digite o número do projeto para abrir ou 'sair' para cancelar.");
-    printLine("Para projetos personalizados, digite 'contact'.");
-    waitingForProjectSelection = true;
+    printLine('Para detalhes: digite project <id>');
+}
+
+async function showProjectDetails(projectId) {
+    const id = (projectId || '').trim().toLowerCase();
+    if (!id) {
+        printLine('Uso: project <id>', { className: 'error' });
+        return;
+    }
+
+    const projects = await loadProjects();
+    if (!projects.length) return;
+
+    const project = projects.find((item) => String(item.id || '').toLowerCase() === id);
+    if (!project) {
+        printLine(`Projeto '${projectId}' não encontrado. Digite 'projects' para listar.`, { className: 'error' });
+        return;
+    }
+
+    printTrustedHTML("<span class='header'>== DETALHES DO PROJETO ==</span>");
+    printLine(`Título: ${project.titulo || 'não informado'}`);
+    printLine(`Tipo: ${project.tipo || 'não informado'}`);
+    printLine(`Descrição: ${project.descricao || 'não informada'}`);
+    printLine(`Ferramentas: ${(project.ferramentas || []).join(', ') || 'não informadas'}`);
+    printLine(`Entregáveis: ${(project.entregaveis || []).join(', ') || 'não informados'}`);
+
+    if (project.link) {
+        printLine(`Link: ${project.link}`);
+        printLine(`Digite open ${project.id} para abrir.`);
+    }
+}
+
+async function openProjectLink(projectOrUrl) {
+    const raw = (projectOrUrl || '').trim();
+    if (!raw) {
+        printLine('Uso: open <id|url>', { className: 'error' });
+        return;
+    }
+
+    const projects = await loadProjects();
+    const byId = projects.find((item) => String(item.id || '').toLowerCase() === raw.toLowerCase());
+
+    if (byId) {
+        if (!byId.link) {
+            printLine(`O projeto '${byId.id}' não possui link cadastrado.`, { className: 'error' });
+            return;
+        }
+        window.open(byId.link, '_blank', 'noopener,noreferrer');
+        return;
+    }
+
+    window.open(raw, '_blank', 'noopener,noreferrer');
 }
 
 function showEngineering() {
@@ -331,19 +501,106 @@ function showServices() {
 function showContact() {
     printTrustedHTML("<span class='header'>--- CONTATO (contact) ---</span>");
 
-    printLine('Redes Profissionais:');
-    printTrustedHTML(`  > GitHub: <a href="${resume.social.github}" target="_blank">${resume.social.github}</a>`);
-    printTrustedHTML(`  > LinkedIn: <a href="${resume.social.linkedin}" target="_blank">${resume.social.linkedin}</a>`);
+    printLine('Canais principais:');
+    printTrustedHTML(`  > E-mail: <a href="${CONTACT.emailHref}">${CONTACT.email}</a>`);
+    printTrustedHTML(`  > WhatsApp: <a href="${CONTACT.whatsappHref}" target="_blank" rel="noopener noreferrer">${CONTACT.whatsappDisplay}</a>`);
+    printTrustedHTML(`  > GitHub: <a href="${CONTACT.github}" target="_blank" rel="noopener noreferrer">${CONTACT.github}</a>`);
+    printTrustedHTML(`  > LinkedIn: <a href="${CONTACT.linkedin}" target="_blank" rel="noopener noreferrer">${CONTACT.linkedin}</a>`);
+    printLine('Dica: role até #contato para botões de copiar.');
+}
 
-    printTrustedHTML('<br>Contato Direto:');
-    printTrustedHTML(`  > E-mail: <a href="mailto:${resume.social.email}">${resume.social.email}</a>`);
-    printTrustedHTML(`  > WhatsApp: <a href="https://wa.me/${resume.social.whatsapp}" target="_blank">+5511996495465</a>`);
+function showContactFeedback(message, isError = false) {
+    if (!contactFeedback) return;
+    contactFeedback.textContent = message;
+    contactFeedback.className = isError ? 'error' : 'success';
+}
 
-    printTrustedHTML('<br>Projetos de Interesse:');
-    printTrustedHTML(`  > FamilySearch: <a href="${resume.social.familysearch}" target="_blank">Acessar FamilySearch</a> (Usuário: <span class='cmd'>${resume.social.familysearch_user}</span>)`);
-    printTrustedHTML(`  > Endogamia Barbalhense: <a href="${resume.social.endogamia}" target="_blank">${resume.social.endogamia}</a>`);
+async function copyText(text) {
+    if (!text) return false;
 
-    printTrustedHTML('<br>Entre em contato para um café virtual!');
+    if (navigator.clipboard && window.isSecureContext) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch {
+            // fallback below
+        }
+    }
+
+    const tempArea = document.createElement('textarea');
+    tempArea.value = text;
+    tempArea.setAttribute('readonly', '');
+    tempArea.style.position = 'fixed';
+    tempArea.style.left = '-9999px';
+    document.body.appendChild(tempArea);
+    tempArea.select();
+
+    let copied = false;
+    try {
+        copied = document.execCommand('copy');
+    } finally {
+        document.body.removeChild(tempArea);
+    }
+
+    return copied;
+}
+
+async function handleCopyAction(valueToCopy, successMessage) {
+    const copied = await copyText(valueToCopy);
+
+    if (copied) {
+        showContactFeedback(successMessage);
+        printLine(`Copiado: ${valueToCopy}`, { className: 'success' });
+    } else {
+        const failMessage = 'Não foi possível copiar automaticamente.';
+        showContactFeedback(failMessage, true);
+        printLine(failMessage, { className: 'error' });
+    }
+
+    focusInput();
+}
+
+function initContactBlock() {
+    const emailLink = document.getElementById('contact-email-link');
+    const whatsappLink = document.getElementById('contact-whatsapp-link');
+    const githubLink = document.getElementById('contact-github-link');
+    const linkedinLink = document.getElementById('contact-linkedin-link');
+
+    if (emailLink) emailLink.href = CONTACT.emailHref;
+    if (whatsappLink) whatsappLink.href = CONTACT.whatsappHref;
+    if (githubLink) githubLink.href = CONTACT.github;
+    if (linkedinLink) linkedinLink.href = CONTACT.linkedin;
+
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+            handleCopyAction(CONTACT.email, `Copiado: ${CONTACT.email}`);
+        });
+    }
+
+    if (copyWhatsappBtn) {
+        copyWhatsappBtn.addEventListener('click', () => {
+            handleCopyAction(CONTACT.whatsappDisplay, `Copiado: ${CONTACT.whatsappDisplay}`);
+        });
+    }
+}
+
+function openCvPdf() {
+    const cvPath = './joao_sinatro_cv.pdf';
+
+    fetch(cvPath, { method: 'HEAD' })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('CV indisponível');
+            }
+            window.open(cvPath, '_blank', 'noopener');
+        })
+        .catch(() => {
+            printLine("PDF indisponível no momento. Use 'curriculo' para abrir a versão web.", { className: 'error' });
+        });
+}
+
+function openCurriculoPage() {
+    window.open('./curriculo.html', '_blank', 'noopener');
 }
 
 function showAll() {
@@ -356,41 +613,17 @@ function showAll() {
     showContact();
 }
 
-function executeCommand(command) {
+async function executeCommand(command) {
     const cmdRaw = typeof command === 'string' ? command : '';
     const cmd = cmdRaw.trim();
     const cmdLower = cmd.toLowerCase();
 
-    if (!cmd && !waitingForProjectSelection) {
+    if (!cmd) {
         focusInput();
         return;
     }
 
-    if (cmd) {
-        printLine(cmd, { isInput: true });
-    }
-
-    if (waitingForProjectSelection) {
-        if (cmdLower === 'sair' || cmdLower === 'cancel' || cmdLower === 'exit') {
-            waitingForProjectSelection = false;
-            printLine('Seleção cancelada.');
-            focusInput();
-            return;
-        }
-
-        const index = parseInt(cmdLower, 10) - 1;
-        if (index >= 0 && index < resume.projects.programming.length) {
-            const proj = resume.projects.programming[index];
-            printLine(`Abrindo ${proj.name.replace(/<[^>]*>/g, '')}...`);
-            window.open(proj.url, '_blank');
-            waitingForProjectSelection = false;
-        } else {
-            printLine("Número inválido. Tente novamente ou digite 'sair'.", { className: 'error' });
-        }
-
-        focusInput();
-        return;
-    }
+    printLine(cmd, { isInput: true });
 
     const [cmdBase, ...args] = cmdLower.split(/\s+/);
     const normalizedCommand = commandAliases[cmdBase] || cmdBase;
@@ -407,7 +640,7 @@ function executeCommand(command) {
             break;
 
         case 'clear':
-            if (outputDiv) outputDiv.textContent = '';
+            clearTerminalOutput();
             break;
 
         case 'tudo':
@@ -417,6 +650,10 @@ function executeCommand(command) {
 
         case 'about':
             showAbout();
+            break;
+
+        case 'pitch':
+            showPitch();
             break;
 
         case 'skills':
@@ -429,7 +666,11 @@ function executeCommand(command) {
             break;
 
         case 'projects':
-            showProjects();
+            await showProjects();
+            break;
+
+        case 'project':
+            await showProjectDetails(args.join(' '));
             break;
 
         case 'contact':
@@ -437,7 +678,7 @@ function executeCommand(command) {
             break;
 
         case 'github':
-            window.open(resume.social.github, '_blank');
+            window.open(CONTACT.github, '_blank', 'noopener,noreferrer');
             break;
 
         case 'engineering':
@@ -461,16 +702,17 @@ function executeCommand(command) {
             break;
 
         case 'open':
-            if (!args.length) {
-                printLine('Uso: open <destino>', { className: 'error' });
-                break;
-            }
-            window.open(args.join(' '), '_blank');
+            await openProjectLink(args.join(' '));
             break;
 
         case 'cv':
-            printLine('Baixando: João Sinatro - CV.pdf...');
-            window.open('./joao_sinatro_cv.pdf', '_blank');
+            printLine('Abrindo: João Sinatro - CV.pdf...');
+            openCvPdf();
+            break;
+
+        case 'curriculo':
+            printLine('Abrindo currículo web...');
+            openCurriculoPage();
             break;
 
         case '':
@@ -487,6 +729,26 @@ window.executeCommand = executeCommand;
 
 if (inputField) {
     inputField.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
+            e.preventDefault();
+            clearTerminalOutput({ showMessage: true });
+            focusInput();
+            return;
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            inputField.value = '';
+            focusInput();
+            return;
+        }
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            focusInput();
+            return;
+        }
+
         if (e.key === 'Enter') {
             const cmd = inputField.value;
             inputField.value = '';
@@ -527,9 +789,38 @@ document.querySelectorAll('.chip').forEach((chip) => {
 
 if (terminalBody) {
     terminalBody.addEventListener('click', (e) => {
+        if (!(e.target instanceof Element)) {
+            focusInput();
+            return;
+        }
+
         const isInteractive = e.target.closest('a, button, input');
         if (!isInteractive) {
             focusInput();
         }
     });
 }
+
+
+document.addEventListener('keydown', (event) => {
+    if (event.target === inputField) return;
+
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'l') {
+        event.preventDefault();
+        clearTerminalOutput({ showMessage: true });
+        focusInput();
+        return;
+    }
+
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        if (!inputField) return;
+        event.preventDefault();
+        inputField.value = '';
+        focusInput();
+        return;
+    }
+
+    if (event.key === 'Escape') {
+        focusInput();
+    }
+});
